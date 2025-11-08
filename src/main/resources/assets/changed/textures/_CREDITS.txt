@@ -1,0 +1,12 @@
+Textures were originally flat colored by me (LtxProgrammer), and later shaded by people who can shade.
+Models that have :Ltx: after the given entity name were originally modelled and textured by LtxProgrammer.
+
+Credits for legacy models:
+
+dark_latex_wolf_female :Ltx: retextured by KoBOLTA and remodeled by Bijimio
+dark_latex_wolf_male :Ltx: retextured by KoBOLTA and remodeled by Bijimio
+
+Credits for new models:
+
+dark_latex_wolf_female :: modeled and textured by LtxProgrammer
+dark_latex_wolf_male :: modeled and textured by LtxProgrammer
