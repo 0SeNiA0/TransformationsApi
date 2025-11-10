@@ -3,10 +3,9 @@ package net.ltxprogrammer.changed.client.animations;
 import net.ltxprogrammer.changed.client.api.ClientLivingEntityExtender;
 import net.ltxprogrammer.changed.client.renderer.model.AdvancedHumanoidModel;
 import net.ltxprogrammer.changed.client.tfanimations.TransfurAnimator;
-import net.ltxprogrammer.changed.entity.ChangedEntity;
 import net.ltxprogrammer.changed.entity.animation.AnimationCategory;
 import net.ltxprogrammer.changed.entity.animation.AnimationParameters;
-import net.ltxprogrammer.changed.entity.animation.NoParameters;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
 import net.ltxprogrammer.changed.util.Transition;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
@@ -42,14 +41,14 @@ public class AnimationInstance {
     public AnimationInstance(AnimationDefinition animation, @NotNull LivingEntity hostEntity, @Nullable AnimationParameters parameters) {
         this.animation = animation;
         this.hostEntity = hostEntity;
-        this.parameters = parameters == null ? NoParameters.INSTANCE : parameters;
+        this.parameters = parameters == null ? AnimationParameters.EMPTY : parameters;
         this.parentEntity = null;
     }
 
     private AnimationInstance(AnimationDefinition animation, @NotNull LivingEntity hostEntity, @Nullable AnimationParameters parameters, @Nullable LivingEntity parentEntity) {
         this.animation = animation;
         this.hostEntity = hostEntity;
-        this.parameters = parameters == null ? NoParameters.INSTANCE : parameters;
+        this.parameters = parameters == null ? AnimationParameters.EMPTY : parameters;
         this.parentEntity = parentEntity;
     }
 

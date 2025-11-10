@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.ltxprogrammer.changed.Changed;
 import net.ltxprogrammer.changed.client.gui.AbstractRadialScreen;
 import net.ltxprogrammer.changed.data.AccessorySlots;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
@@ -51,8 +51,8 @@ public abstract class InventoryScreenMixin extends EffectRenderingInventoryScree
         if (!Changed.config.client.useGoopyInventory.get())
             return;
 
-        ProcessTransfur.ifPlayerTransfurred(this.minecraft.player, variant -> {
-            if (ProcessTransfur.isPlayerNotLatex(this.minecraft.player))
+        ProcessTransform.ifPlayerTransfurred(this.minecraft.player, variant -> {
+            if (ProcessTransform.isPlayerNotLatex(this.minecraft.player))
                 return;
 
             var colorPair = AbstractRadialScreen.getColors(variant);
@@ -74,8 +74,8 @@ public abstract class InventoryScreenMixin extends EffectRenderingInventoryScree
         if (!Changed.config.client.useGoopyInventory.get())
             return;
 
-        ProcessTransfur.ifPlayerTransfurred(this.minecraft.player, variant -> {
-            if (ProcessTransfur.isPlayerNotLatex(this.minecraft.player))
+        ProcessTransform.ifPlayerTransfurred(this.minecraft.player, variant -> {
+            if (ProcessTransform.isPlayerNotLatex(this.minecraft.player))
                 return;
 
             int i = this.leftPos;

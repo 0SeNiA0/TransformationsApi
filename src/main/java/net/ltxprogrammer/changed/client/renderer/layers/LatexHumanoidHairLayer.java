@@ -7,8 +7,8 @@ import net.ltxprogrammer.changed.client.renderer.model.AdvancedHumanoidModelInte
 import net.ltxprogrammer.changed.client.renderer.model.CorrectorType;
 import net.ltxprogrammer.changed.client.renderer.model.HairModel;
 import net.ltxprogrammer.changed.client.renderer.model.hair.HairRemodel;
-import net.ltxprogrammer.changed.entity.ChangedEntity;
-import net.ltxprogrammer.changed.entity.HairStyle;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
+import net.ltxprogrammer.changed.transform.HairStyle;
 import net.ltxprogrammer.changed.util.Color3;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelPart;

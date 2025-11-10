@@ -1,7 +1,7 @@
 package net.ltxprogrammer.changed.entity.ai;
 
-import net.ltxprogrammer.changed.entity.ChangedEntity;
-import net.ltxprogrammer.changed.entity.TamableLatexEntity;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
+import net.ltxprogrammer.changed.entity.api.TamableLatexEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;

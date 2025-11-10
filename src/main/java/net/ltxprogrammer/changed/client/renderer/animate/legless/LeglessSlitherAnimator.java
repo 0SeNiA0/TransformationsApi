@@ -2,8 +2,8 @@ package net.ltxprogrammer.changed.client.renderer.animate.legless;
 
 import net.ltxprogrammer.changed.client.renderer.animate.HumanoidAnimator;
 import net.ltxprogrammer.changed.client.renderer.model.AdvancedHumanoidModel;
-import net.ltxprogrammer.changed.entity.ChangedEntity;
-import net.ltxprogrammer.changed.entity.SpringType;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
+import net.ltxprogrammer.changed.transform.SpringType;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;

@@ -6,7 +6,7 @@ import eu.ha3.presencefootsteps.sound.generator.Locomotion;
 import net.ltxprogrammer.changed.Changed;
 import net.ltxprogrammer.changed.extension.RequiredMods;
 import net.ltxprogrammer.changed.extension.presencefootsteps.ChangedPresenceFootsteps;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.ltxprogrammer.changed.util.EntityUtil;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -34,7 +34,7 @@ public abstract class SoundEngineMixin implements PreparableReloadListener {
 
     @Inject(method = "getLocomotion", at = @At("HEAD"), cancellable = true)
     public void getLocomotion(LivingEntity entity, CallbackInfoReturnable<Locomotion> callbackInfo) {
-        ProcessTransfur.ifPlayerTransfurred(EntityUtil.playerOrNull(entity), variant -> {
+        ProcessTransform.ifPlayerTransfurred(EntityUtil.playerOrNull(entity), variant -> {
             callbackInfo.setReturnValue(this.isolator.getLocomotionMap().lookup(variant.getChangedEntity()));
         });
     }

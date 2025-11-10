@@ -1,10 +1,9 @@
 package net.ltxprogrammer.changed.ability;
 
 import net.ltxprogrammer.changed.data.AccessorySlots;
-import net.ltxprogrammer.changed.entity.*;
-import net.ltxprogrammer.changed.entity.variant.TransfurVariant;
-import net.ltxprogrammer.changed.entity.variant.TransfurVariantInstance;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
+import net.ltxprogrammer.changed.entity.api.TamableLatexEntity;
+import net.ltxprogrammer.changed.transform.*;
 import net.ltxprogrammer.changed.util.Cacheable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -103,7 +102,7 @@ public interface IAbstractChangedEntity {
     }
 
     static IAbstractChangedEntity forPlayer(Player player) {
-        Cacheable<TransfurVariantInstance<?>> instance = Cacheable.of(() -> ProcessTransfur.getPlayerTransfurVariant(player));
+        Cacheable<TransfurVariantInstance<?>> instance = Cacheable.of(() -> ProcessTransform.getPlayerTransfurVariant(player));
         Cacheable<ChangedEntity> latex = Cacheable.of(() -> instance.get().getChangedEntity());
 
         return new IAbstractChangedEntity() {
@@ -187,7 +186,7 @@ public interface IAbstractChangedEntity {
 
                 var old = getTransfurVariantInstance();
                 float beforeHealth = player.getHealth();
-                ProcessTransfur.setPlayerTransfurVariant(player, otherVariant, old.transfurContext, 1.0f);
+                ProcessTransform.setPlayerTransfurVariant(player, otherVariant, old.transfurContext, 1.0f);
                 player.setHealth(beforeHealth);
                 instance.clear();
                 latex.clear();
@@ -200,7 +199,7 @@ public interface IAbstractChangedEntity {
 
             @Override
             public boolean isStillLatex() {
-                return ProcessTransfur.getPlayerTransfurVariant(player) != null;
+                return ProcessTransform.getPlayerTransfurVariant(player) != null;
             }
 
             @Override
@@ -485,7 +484,7 @@ public interface IAbstractChangedEntity {
     }
 
     static @Nullable IAbstractChangedEntity forEither(LivingEntity entity) {
-        if (entity instanceof Player player && ProcessTransfur.isPlayerTransfurred(player))
+        if (entity instanceof Player player && ProcessTransform.isPlayerTransfurred(player))
             return forPlayer(player);
         else if (entity instanceof ChangedEntity changed)
             return forEntity(changed);
@@ -493,7 +492,7 @@ public interface IAbstractChangedEntity {
     }
 
     static Optional<IAbstractChangedEntity> forEitherSafe(Entity entity) {
-        if (entity instanceof Player player && ProcessTransfur.isPlayerTransfurred(player))
+        if (entity instanceof Player player && ProcessTransform.isPlayerTransfurred(player))
             return Optional.of(forPlayer(player));
         else if (entity instanceof ChangedEntity changed)
             return Optional.of(forEntity(changed));

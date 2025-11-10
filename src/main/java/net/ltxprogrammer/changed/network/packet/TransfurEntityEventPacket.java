@@ -1,6 +1,6 @@
 package net.ltxprogrammer.changed.network.packet;
 
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.ltxprogrammer.changed.util.EntityUtil;
 import net.ltxprogrammer.changed.util.UniversalDist;
 import net.minecraft.network.FriendlyByteBuf;
@@ -34,7 +34,7 @@ public class TransfurEntityEventPacket implements ChangedPacket {
     public void handle(Supplier<NetworkEvent.Context> contextSupplier) {
         var context = contextSupplier.get();
         if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
-            ProcessTransfur.ifPlayerTransfurred(EntityUtil.playerOrNull(UniversalDist.getLevel().getEntity(entityId)), variant -> {
+            ProcessTransform.ifPlayerTransfurred(EntityUtil.playerOrNull(UniversalDist.getLevel().getEntity(entityId)), variant -> {
                 variant.getChangedEntity().handleEntityEvent(eventId);
                 context.setPacketHandled(true);
             });

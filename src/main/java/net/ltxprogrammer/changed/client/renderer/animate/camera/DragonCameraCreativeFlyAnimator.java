@@ -3,7 +3,7 @@ package net.ltxprogrammer.changed.client.renderer.animate.camera;
 import net.ltxprogrammer.changed.client.api.CameraExtender;
 import net.ltxprogrammer.changed.client.renderer.animate.HumanoidAnimator;
 import net.ltxprogrammer.changed.client.renderer.model.AdvancedHumanoidModel;
-import net.ltxprogrammer.changed.entity.ChangedEntity;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 

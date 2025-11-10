@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 import net.ltxprogrammer.changed.client.renderer.model.AdvancedHumanoidModel;
 import net.ltxprogrammer.changed.client.renderer.model.DoubleArmedModel;
-import net.ltxprogrammer.changed.entity.ChangedEntity;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
 import net.ltxprogrammer.changed.init.ChangedAbilities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HeadedModel;

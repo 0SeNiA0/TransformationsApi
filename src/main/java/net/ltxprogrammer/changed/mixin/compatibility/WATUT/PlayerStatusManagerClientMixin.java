@@ -2,7 +2,7 @@ package net.ltxprogrammer.changed.mixin.compatibility.WATUT;
 
 import com.corosus.watut.PlayerStatusManagerClient;
 import net.ltxprogrammer.changed.extension.RequiredMods;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class PlayerStatusManagerClientMixin {
     @Inject(method = "getParticlePosition", at = @At("RETURN"), cancellable = true)
     public void overrideForModelSize(Player player, CallbackInfoReturnable<Vec3> cir) {
-        ProcessTransfur.ifPlayerTransfurred(player, variant -> {
+        ProcessTransform.ifPlayerTransfurred(player, variant -> {
             final double deltaEyeHeight = player.getEyeHeight() - (EntityType.PLAYER.getHeight() * 0.85F);
             cir.setReturnValue(cir.getReturnValue().add(0.0, deltaEyeHeight, 0.0));
         });

@@ -2,8 +2,8 @@ package net.ltxprogrammer.changed.network.packet;
 
 import net.ltxprogrammer.changed.data.AccessorySlotType;
 import net.ltxprogrammer.changed.data.AccessorySlots;
-import net.ltxprogrammer.changed.util.UniversalDist;
 import net.ltxprogrammer.changed.menu.AccessoryAccessMenu;
+import net.ltxprogrammer.changed.util.UniversalDist;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;

@@ -1,10 +1,10 @@
 package net.ltxprogrammer.changed.enchantments;
 
 import net.ltxprogrammer.changed.ability.IAbstractChangedEntity;
-import net.ltxprogrammer.changed.entity.ChangedEntity;
-import net.ltxprogrammer.changed.entity.variant.ClothingShape;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
 import net.ltxprogrammer.changed.init.ChangedEnchantments;
 import net.ltxprogrammer.changed.item.ExtendedItemProperties;
+import net.ltxprogrammer.changed.transform.ClothingShape;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;

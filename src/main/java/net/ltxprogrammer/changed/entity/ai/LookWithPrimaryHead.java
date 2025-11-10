@@ -1,6 +1,6 @@
 package net.ltxprogrammer.changed.entity.ai;
 
-import net.ltxprogrammer.changed.entity.beast.DoubleHeadedEntity;
+import net.ltxprogrammer.changed.entity.api.DoubleHeadedEntity;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;

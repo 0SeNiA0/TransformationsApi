@@ -2,7 +2,7 @@ package net.ltxprogrammer.changed.client;
 
 import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.util.Pair;
-import net.ltxprogrammer.changed.entity.ComplexRenderer;
+import net.ltxprogrammer.changed.entity.api.ComplexRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.world.entity.Entity;

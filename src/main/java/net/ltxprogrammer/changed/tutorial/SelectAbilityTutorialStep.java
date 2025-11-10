@@ -1,8 +1,8 @@
 package net.ltxprogrammer.changed.tutorial;
 
 import net.ltxprogrammer.changed.init.ChangedKeyMappings;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
 import net.ltxprogrammer.changed.menu.AbilityRadialMenu;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.toasts.TutorialToast;
 import net.minecraft.client.tutorial.Tutorial;
@@ -26,9 +26,9 @@ public class SelectAbilityTutorialStep implements ChangedTutorialInstance {
 
     public void tick() {
         var player = Minecraft.getInstance().player;
-        if (!ProcessTransfur.isPlayerTransfurred(player))
+        if (!ProcessTransform.isPlayerTransfurred(player))
             return; // Wait until player is TF'd
-        var variant = ProcessTransfur.getPlayerTransfurVariant(player);
+        var variant = ProcessTransform.getPlayerTransfurVariant(player);
         if (variant == null || variant.isTemporaryFromSuit())
             return;
 

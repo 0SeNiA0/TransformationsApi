@@ -6,9 +6,9 @@ import net.ltxprogrammer.changed.Changed;
 import net.ltxprogrammer.changed.client.animations.AnimationAssociations;
 import net.ltxprogrammer.changed.client.animations.AnimationDefinitions;
 import net.ltxprogrammer.changed.client.renderer.layers.FirstPersonLayer;
-import net.ltxprogrammer.changed.entity.VisionType;
-import net.ltxprogrammer.changed.entity.variant.TransfurVariantInstance;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
+import net.ltxprogrammer.changed.transform.TransfurVariantInstance;
+import net.ltxprogrammer.changed.transform.VisionType;
 import net.ltxprogrammer.changed.util.Cacheable;
 import net.ltxprogrammer.changed.util.EntityUtil;
 import net.minecraft.client.Minecraft;
@@ -78,7 +78,7 @@ public class ChangedClient {
     }
 
     public static boolean shouldRenderingWaveVision() {
-        return ProcessTransfur.getPlayerTransfurVariantSafe(EntityUtil.playerOrNull(minecraft.cameraEntity))
+        return ProcessTransform.getPlayerTransfurVariantSafe(EntityUtil.playerOrNull(minecraft.cameraEntity))
                 .map(variant -> variant.visionType == VisionType.WAVE_VISION)
                 .orElse(false);
     }
@@ -87,7 +87,7 @@ public class ChangedClient {
     private static float waveEffect = 0.0f;
     private static Vector3f waveResonance = Vector3f.ZERO;
     public static float setupWaveVisionEffect(float partialTicks) {
-        float effect = ProcessTransfur.getPlayerTransfurVariantSafe(EntityUtil.playerOrNull(minecraft.cameraEntity))
+        float effect = ProcessTransform.getPlayerTransfurVariantSafe(EntityUtil.playerOrNull(minecraft.cameraEntity))
                 .filter(variant -> variant.visionType == VisionType.WAVE_VISION)
                 .map(TransfurVariantInstance::getTicksInWaveVision)
                 .map(ticks -> ticks + partialTicks).orElse(0.0f);

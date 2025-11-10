@@ -1,6 +1,6 @@
 package net.ltxprogrammer.changed.mixin.server;
 
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerPlayerGameMode;
 import net.minecraft.world.level.GameType;
@@ -17,7 +17,7 @@ public abstract class ServerPlayerGameModeMixin {
 
     @Inject(method = "setGameModeForPlayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;onUpdateAbilities()V"))
     public void andApplyFlyAbility(GameType newType, GameType oldType, CallbackInfo callback) {
-        ProcessTransfur.ifPlayerTransfurred(this.player, variant -> {
+        ProcessTransform.ifPlayerTransfurred(this.player, variant -> {
             if (variant.getParent().canGlide) {
                 this.player.getAbilities().mayfly = true;
                 if (!this.player.isOnGround() && newType.isSurvival()) {

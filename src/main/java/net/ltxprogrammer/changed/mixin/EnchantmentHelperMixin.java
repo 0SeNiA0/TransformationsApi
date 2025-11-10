@@ -1,8 +1,8 @@
 package net.ltxprogrammer.changed.mixin;
 
-import net.ltxprogrammer.changed.entity.ChangedEntity;
-import net.ltxprogrammer.changed.entity.variant.TransfurVariant;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
+import net.ltxprogrammer.changed.transform.TransfurVariant;
 import net.ltxprogrammer.changed.util.EntityUtil;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -20,14 +20,14 @@ public abstract class EnchantmentHelperMixin {
             return;
         }
 
-        ProcessTransfur.ifPlayerTransfurred(EntityUtil.playerOrNull(le), variant -> {
+        ProcessTransform.ifPlayerTransfurred(EntityUtil.playerOrNull(le), variant -> {
             callback.setReturnValue(callback.getReturnValue() + variant.getChangedEntity().getDepthStriderLevel());
         });
     }
 
     @Inject(method = "hasAquaAffinity", at = @At("HEAD"), cancellable = true)
     private static void hasAquaAffinity(LivingEntity le, CallbackInfoReturnable<Boolean> callback) {
-        ProcessTransfur.ifPlayerTransfurred(EntityUtil.playerOrNull(le), variant -> {
+        ProcessTransform.ifPlayerTransfurred(EntityUtil.playerOrNull(le), variant -> {
             if (variant.breatheMode.hasAquaAffinity())
                 callback.setReturnValue(true);
         });
@@ -35,7 +35,7 @@ public abstract class EnchantmentHelperMixin {
 
     @Inject(method = "getRespiration", at = @At("RETURN"), cancellable = true)
     private static void getRespirationOrIfStrong(LivingEntity le, CallbackInfoReturnable<Integer> callback) {
-        ProcessTransfur.ifPlayerTransfurred(EntityUtil.playerOrNull(le), variant -> {
+        ProcessTransform.ifPlayerTransfurred(EntityUtil.playerOrNull(le), variant -> {
             if (variant.breatheMode == TransfurVariant.BreatheMode.STRONG)
                 callback.setReturnValue(Math.max(callback.getReturnValue(), 4));
         });

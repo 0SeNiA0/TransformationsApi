@@ -2,10 +2,10 @@ package net.ltxprogrammer.changed.item;
 
 import net.ltxprogrammer.changed.ability.IAbstractChangedEntity;
 import net.ltxprogrammer.changed.data.AccessorySlots;
-import net.ltxprogrammer.changed.entity.ChangedEntity;
-import net.ltxprogrammer.changed.entity.variant.ClothingShape;
-import net.ltxprogrammer.changed.entity.variant.EntityShape;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
 import net.ltxprogrammer.changed.init.ChangedEnchantments;
+import net.ltxprogrammer.changed.transform.ClothingShape;
+import net.ltxprogrammer.changed.transform.EntityShape;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EquipmentSlot;

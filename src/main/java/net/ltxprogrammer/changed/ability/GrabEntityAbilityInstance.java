@@ -2,15 +2,15 @@ package net.ltxprogrammer.changed.ability;
 
 import com.mojang.datafixers.util.Pair;
 import net.ltxprogrammer.changed.Changed;
-import net.ltxprogrammer.changed.entity.LivingEntityDataExtension;
-import net.ltxprogrammer.changed.entity.PlayerDataExtension;
-import net.ltxprogrammer.changed.entity.TransfurCause;
-import net.ltxprogrammer.changed.entity.TransfurContext;
-import net.ltxprogrammer.changed.entity.variant.TransfurVariantInstance;
+import net.ltxprogrammer.changed.entity.api.LivingEntityDataExtension;
+import net.ltxprogrammer.changed.entity.api.PlayerDataExtension;
 import net.ltxprogrammer.changed.init.ChangedAttributes;
 import net.ltxprogrammer.changed.init.ChangedTags;
 import net.ltxprogrammer.changed.network.packet.GrabEntityPacket;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
+import net.ltxprogrammer.changed.transform.TransfurCause;
+import net.ltxprogrammer.changed.transform.TransfurContext;
+import net.ltxprogrammer.changed.transform.TransfurVariantInstance;
 import net.ltxprogrammer.changed.util.UniversalDist;
 import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
@@ -84,7 +84,7 @@ public class GrabEntityAbilityInstance extends AbstractAbilityInstance {
 
         var hitResult = UniversalDist.getLocalHitResult();
         if (hitResult instanceof EntityHitResult entityHitResult && entityHitResult.getEntity() instanceof LivingEntity livingEntity) {
-            if (livingEntity instanceof Player targetPlayer && ProcessTransfur.isPlayerTransfurred(targetPlayer))
+            if (livingEntity instanceof Player targetPlayer && ProcessTransform.isPlayerTransfurred(targetPlayer))
                 return null;
             if (livingEntity.getType().is(ChangedTags.EntityTypes.HUMANOIDS) || livingEntity instanceof Player)
                 return livingEntity;
@@ -153,7 +153,7 @@ public class GrabEntityAbilityInstance extends AbstractAbilityInstance {
     public void suitEntity(LivingEntity entity) {
         getController().resetHoldTicks();
 
-        ProcessTransfur.forceNearbyToRetarget(entity.level, entity);
+        ProcessTransform.forceNearbyToRetarget(entity.level, entity);
 
         if (this.grabbedEntity != entity)
             this.releaseEntity();
@@ -361,19 +361,19 @@ public class GrabEntityAbilityInstance extends AbstractAbilityInstance {
                 return;
             }
 
-            if (this.suited && this.grabbedEntity instanceof Player player && !ProcessTransfur.isPlayerTransfurred(player)) {
-                ProcessTransfur.setPlayerTransfurVariant(player, this.entity.getSelfVariant(), TransfurContext.latexHazard(this.entity, TransfurCause.GRAB_REPLICATE), 1.0f, true);
+            if (this.suited && this.grabbedEntity instanceof Player player && !ProcessTransform.isPlayerTransfurred(player)) {
+                ProcessTransform.setPlayerTransfurVariant(player, this.entity.getSelfVariant(), TransfurContext.latexHazard(this.entity, TransfurCause.GRAB_REPLICATE), 1.0f, true);
             }
 
-            else if (!this.suited && this.grabbedEntity instanceof Player player && ProcessTransfur.isPlayerTransfurred(player)) {
-                ProcessTransfur.ifPlayerTransfurred(player, variant -> {
+            else if (!this.suited && this.grabbedEntity instanceof Player player && ProcessTransform.isPlayerTransfurred(player)) {
+                ProcessTransform.ifPlayerTransfurred(player, variant -> {
                     if (variant.isTemporaryFromSuit())
-                        ProcessTransfur.removePlayerTransfurVariant(player);
+                        ProcessTransform.removePlayerTransfurVariant(player);
                 });
             }
 
-            if (this.grabbedEntity instanceof Player player && ProcessTransfur.isPlayerTransfurred(player)) {
-                var variant = ProcessTransfur.getPlayerTransfurVariant(player);
+            if (this.grabbedEntity instanceof Player player && ProcessTransform.isPlayerTransfurred(player)) {
+                var variant = ProcessTransform.getPlayerTransfurVariant(player);
                 if (!variant.isTemporaryFromSuit()) {
                     this.releaseEntity();
                     return;
@@ -405,7 +405,7 @@ public class GrabEntityAbilityInstance extends AbstractAbilityInstance {
 
             if (attackDown && !suited) {
                 float damage = (float)entity.getEntity().getAttributeValue(ChangedAttributes.TRANSFUR_DAMAGE.get());
-                damage = ProcessTransfur.difficultyAdjustTransfurAmount(entity.getLevel().getDifficulty(), damage);
+                damage = ProcessTransform.difficultyAdjustTransfurAmount(entity.getLevel().getDifficulty(), damage);
                 //TODO do something with this
                 //if (ProcessTransfur.progressTransfur(this.grabbedEntity, damage, entity.getChangedEntity().getTransfurVariant(), TransfurContext.latexHazard(this.entity, TransfurCause.GRAB_REPLICATE))
                 //        && !this.entity.getLevel().isClientSide)

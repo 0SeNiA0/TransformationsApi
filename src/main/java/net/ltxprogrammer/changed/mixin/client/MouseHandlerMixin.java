@@ -1,6 +1,6 @@
 package net.ltxprogrammer.changed.mixin.client;
 
-import net.ltxprogrammer.changed.entity.LivingEntityDataExtension;
+import net.ltxprogrammer.changed.entity.api.LivingEntityDataExtension;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHandler;
 import org.spongepowered.asm.mixin.Final;

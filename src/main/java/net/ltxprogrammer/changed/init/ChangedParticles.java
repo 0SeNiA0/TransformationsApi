@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import net.ltxprogrammer.changed.Changed;
 import net.ltxprogrammer.changed.effect.particle.EmoteParticle;
 import net.ltxprogrammer.changed.effect.particle.EmoteParticleOption;
-import net.ltxprogrammer.changed.entity.Emote;
+import net.ltxprogrammer.changed.emote.Emote;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;

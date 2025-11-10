@@ -2,15 +2,15 @@ package net.ltxprogrammer.changed.mixin.entity;
 
 import net.ltxprogrammer.changed.ability.AbstractAbility;
 import net.ltxprogrammer.changed.data.AccessorySlots;
-import net.ltxprogrammer.changed.entity.BasicPlayerInfo;
-import net.ltxprogrammer.changed.entity.ChangedEntity;
-import net.ltxprogrammer.changed.entity.PlayerDataExtension;
-import net.ltxprogrammer.changed.entity.variant.TransfurVariantInstance;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
+import net.ltxprogrammer.changed.entity.api.PlayerDataExtension;
 import net.ltxprogrammer.changed.init.ChangedAbilities;
 import net.ltxprogrammer.changed.init.ChangedAttributes;
 import net.ltxprogrammer.changed.init.ChangedDamageSources;
 import net.ltxprogrammer.changed.init.ChangedSounds;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.BasicPlayerInfo;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
+import net.ltxprogrammer.changed.transform.TransfurVariantInstance;
 import net.ltxprogrammer.changed.util.CameraUtil;
 import net.ltxprogrammer.changed.util.EntityUtil;
 import net.minecraft.sounds.SoundEvent;
@@ -48,7 +48,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerDataExte
 
     @Inject(method = "getMyRidingOffset", at = @At("RETURN"), cancellable = true)
     public void getMyRidingOffset(CallbackInfoReturnable<Double> callback) {
-        ProcessTransfur.ifPlayerTransfurred(EntityUtil.playerOrNull(this), variant -> {
+        ProcessTransform.ifPlayerTransfurred(EntityUtil.playerOrNull(this), variant -> {
             callback.setReturnValue(
                 Mth.lerp(variant.getMorphProgression(), callback.getReturnValue(), variant.getChangedEntity().getMyRidingOffset())
             );
@@ -71,7 +71,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerDataExte
 
     @Inject(method = "tick", at = @At("HEAD"))
     public void tickPre(CallbackInfo ci) {
-        ProcessTransfur.tickPlayerTransfurProgress((Player)(Object)this);
+        ProcessTransform.tickPlayerTransfurProgress((Player)(Object)this);
     }
 
     @Inject(method = "tick", at = @At("RETURN"))
@@ -103,7 +103,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerDataExte
         if (!(target instanceof LivingEntity livingEntity))
             return;
 
-        ProcessTransfur.ifPlayerTransfurred(EntityUtil.playerOrNull(this), (player, variant) -> {
+        ProcessTransform.ifPlayerTransfurred(EntityUtil.playerOrNull(this), (player, variant) -> {
             ItemStack attackingItem = this.getItemInHand(InteractionHand.MAIN_HAND);
 
             // Check if item contributes to transfur damage
@@ -126,7 +126,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerDataExte
 
     @Inject(method = "setItemSlot", at = @At("HEAD"), cancellable = true)
     public void denyInvalidArmor(EquipmentSlot slot, ItemStack item, CallbackInfo ci) {
-        ProcessTransfur.ifPlayerTransfurred(EntityUtil.playerOrNull(this), (player, variant) -> {
+        ProcessTransform.ifPlayerTransfurred(EntityUtil.playerOrNull(this), (player, variant) -> {
             if (!variant.canWear(player, item, slot) && slot != EquipmentSlot.MAINHAND) {
                 ci.cancel();
                 this.setItemSlot(EquipmentSlot.MAINHAND, item);
@@ -217,7 +217,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerDataExte
 
     @Inject(method = "getDimensions", at = @At("RETURN"), cancellable = true)
     public void getDimensions(Pose pose, CallbackInfoReturnable<EntityDimensions> callback) {
-        ProcessTransfur.ifPlayerTransfurred(EntityUtil.playerOrNull(this), variant -> {
+        ProcessTransform.ifPlayerTransfurred(EntityUtil.playerOrNull(this), variant -> {
             final float morphProgress = variant.getMorphProgression();
 
             if (morphProgress < 1f) {

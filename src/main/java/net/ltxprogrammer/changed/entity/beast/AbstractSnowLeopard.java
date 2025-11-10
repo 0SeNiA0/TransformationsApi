@@ -1,6 +1,9 @@
 package net.ltxprogrammer.changed.entity.beast;
 
-import net.ltxprogrammer.changed.entity.*;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
+import net.ltxprogrammer.changed.entity.api.GenderedEntity;
+import net.ltxprogrammer.changed.entity.api.PowderSnowWalkable;
+import net.ltxprogrammer.changed.transform.TransfurCause;
 import net.ltxprogrammer.changed.util.Color3;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;

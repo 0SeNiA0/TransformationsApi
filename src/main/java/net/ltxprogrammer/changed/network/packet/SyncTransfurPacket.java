@@ -2,10 +2,10 @@ package net.ltxprogrammer.changed.network.packet;
 
 import com.mojang.datafixers.util.Pair;
 import net.ltxprogrammer.changed.Changed;
-import net.ltxprogrammer.changed.entity.TransfurCause;
-import net.ltxprogrammer.changed.entity.TransfurContext;
 import net.ltxprogrammer.changed.init.ChangedRegistry;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
+import net.ltxprogrammer.changed.transform.TransfurCause;
+import net.ltxprogrammer.changed.transform.TransfurContext;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.nbt.CompoundTag;
@@ -70,7 +70,7 @@ public class SyncTransfurPacket implements ChangedPacket {
             changedForms.forEach((uuid, listing) -> {
                 Player player = level.getPlayerByUUID(uuid);
                 if (player != null) {
-                    final var variant = ProcessTransfur.setPlayerTransfurVariant(player,
+                    final var variant = ProcessTransform.setPlayerTransfurVariant(player,
                             ChangedRegistry.TRANSFUR_VARIANT.get().getValue(listing.form),
                             TransfurContext.hazard(listing.cause),
                             listing.progress,
@@ -98,7 +98,7 @@ public class SyncTransfurPacket implements ChangedPacket {
         private final Map<UUID, Listing> changedForms = new HashMap<>();
 
         public void addPlayer(Player player) {
-            ProcessTransfur.ifPlayerTransfurred(player, variant -> {
+            ProcessTransform.ifPlayerTransfurred(player, variant -> {
                 changedForms.put(player.getUUID(),
                         new Listing(ChangedRegistry.TRANSFUR_VARIANT.get().getID(
                                 variant.getParent()),

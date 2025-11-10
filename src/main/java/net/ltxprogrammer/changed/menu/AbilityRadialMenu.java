@@ -1,8 +1,8 @@
 package net.ltxprogrammer.changed.menu;
 
-import net.ltxprogrammer.changed.entity.variant.TransfurVariantInstance;
 import net.ltxprogrammer.changed.init.ChangedMenus;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
+import net.ltxprogrammer.changed.transform.TransfurVariantInstance;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -43,7 +43,7 @@ public class AbilityRadialMenu extends AbstractContainerMenu {
         this.data = p_38972_;
         this.world = inv.player.level;
         this.player = inv.player;
-        this.variant = ProcessTransfur.getPlayerTransfurVariant(player);
+        this.variant = ProcessTransform.getPlayerTransfurVariant(player);
         this.customSlots.put(0, this.addSlot(new Slot(p_38971_, 0, 9999, 9999) {
             @Override
             public boolean mayPlace(ItemStack stack) {
@@ -54,6 +54,6 @@ public class AbilityRadialMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(@NotNull Player player) {
-        return ProcessTransfur.isPlayerTransfurred(player);
+        return ProcessTransform.isPlayerTransfurred(player);
     }
 }

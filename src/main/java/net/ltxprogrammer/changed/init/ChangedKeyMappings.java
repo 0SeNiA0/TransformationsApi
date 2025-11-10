@@ -3,7 +3,7 @@ package net.ltxprogrammer.changed.init;
 import net.ltxprogrammer.changed.Changed;
 import net.ltxprogrammer.changed.network.ExtraJumpKeybind;
 import net.ltxprogrammer.changed.network.VariantAbilityActivate;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.ltxprogrammer.changed.tutorial.ChangedTutorial;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -41,7 +41,7 @@ public class ChangedKeyMappings {
                 if (event.getKey() == USE_ABILITY.getKey().getValue()) {
                     USE_ABILITY.consumeClick();
 
-                    ProcessTransfur.ifPlayerTransfurred(local, variant -> {
+                    ProcessTransform.ifPlayerTransfurred(local, variant -> {
                         if (variant.isTemporaryFromSuit())
                             return;
 
@@ -56,7 +56,7 @@ public class ChangedKeyMappings {
 
                 if (event.getKey() == SELECT_ABILITY.getKey().getValue() && event.getAction() == GLFW.GLFW_PRESS) {
                     SELECT_ABILITY.consumeClick();
-                    ProcessTransfur.ifPlayerTransfurred(local, variant -> {
+                    ProcessTransform.ifPlayerTransfurred(local, variant -> {
                         if (variant.isTemporaryFromSuit())
                             return;
 
@@ -67,7 +67,7 @@ public class ChangedKeyMappings {
 
                 if (event.getKey() == options.keyJump.getKey().getValue() && event.getAction() == GLFW.GLFW_PRESS) {
                     if (!local.isOnGround())
-                        ProcessTransfur.ifPlayerTransfurred(local, variant -> {
+                        ProcessTransform.ifPlayerTransfurred(local, variant -> {
                             if (!variant.getParent().canDoubleJump())
                                 return;
                             if (variant.getJumpCharges() > 0) {

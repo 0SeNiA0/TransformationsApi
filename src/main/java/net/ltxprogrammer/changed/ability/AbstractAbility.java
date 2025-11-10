@@ -1,10 +1,10 @@
 package net.ltxprogrammer.changed.ability;
 
 import net.ltxprogrammer.changed.Changed;
-import net.ltxprogrammer.changed.entity.ChangedEntity;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
 import net.ltxprogrammer.changed.init.ChangedRegistry;
 import net.ltxprogrammer.changed.network.packet.SyncVariantAbilityPacket;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -280,7 +280,7 @@ public abstract class AbstractAbility<Instance extends AbstractAbilityInstance> 
         if (livingEntity instanceof ChangedEntity latex)
             return latex.getAbilityInstance(ability);
         else if (livingEntity instanceof Player player) {
-            var latexInstance = ProcessTransfur.getPlayerTransfurVariant(player);
+            var latexInstance = ProcessTransform.getPlayerTransfurVariant(player);
             if (latexInstance == null)
                 return null;
             return latexInstance.getAbilityInstance(ability);
@@ -296,7 +296,7 @@ public abstract class AbstractAbility<Instance extends AbstractAbilityInstance> 
         if (livingEntity instanceof ChangedEntity latex)
             return Optional.ofNullable(latex.getAbilityInstance(ability));
         else if (livingEntity instanceof Player player) {
-            return ProcessTransfur.getPlayerTransfurVariantSafe(player).map(instance -> instance.getAbilityInstance(ability));
+            return ProcessTransform.getPlayerTransfurVariantSafe(player).map(instance -> instance.getAbilityInstance(ability));
         }
 
         return Optional.empty();

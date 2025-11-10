@@ -2,7 +2,7 @@ package net.ltxprogrammer.changed.network.packet;
 
 import net.ltxprogrammer.changed.Changed;
 import net.ltxprogrammer.changed.init.ChangedRegistry;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -47,7 +47,7 @@ public class SyncVariantAbilityPacket implements ChangedPacket {
         NetworkEvent.Context context = contextSupplier.get();
         if (context.getDirection().getReceptionSide().isServer()) { // Mirror packet
             ServerPlayer sender = context.getSender();
-            ProcessTransfur.ifPlayerTransfurred(sender, variant -> {
+            ProcessTransform.ifPlayerTransfurred(sender, variant -> {
                 var ability = ChangedRegistry.ABILITY.get().getValue(id);
                 Changed.PACKET_HANDLER.send(PacketDistributor.ALL.noArg(), new SyncVariantAbilityPacket(id, data, sender.getUUID()));
                 if (variant.abilityInstances.containsKey(ability))
@@ -58,7 +58,7 @@ public class SyncVariantAbilityPacket implements ChangedPacket {
 
         else {
             Player affectedPlayer = Minecraft.getInstance().level.getPlayerByUUID(playerUUID);
-            ProcessTransfur.ifPlayerTransfurred(Minecraft.getInstance().level.getPlayerByUUID(playerUUID), variant -> {
+            ProcessTransform.ifPlayerTransfurred(Minecraft.getInstance().level.getPlayerByUUID(playerUUID), variant -> {
                 var ability = ChangedRegistry.ABILITY.get().getValue(id);
                 if (variant.abilityInstances.containsKey(ability))
                     variant.abilityInstances.get(ability).readData(data);

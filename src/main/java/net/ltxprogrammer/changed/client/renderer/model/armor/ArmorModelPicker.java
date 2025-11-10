@@ -1,7 +1,7 @@
 package net.ltxprogrammer.changed.client.renderer.model.armor;
 
 import net.ltxprogrammer.changed.client.renderer.animate.HumanoidAnimator;
-import net.ltxprogrammer.changed.entity.ChangedEntity;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
 import net.ltxprogrammer.changed.item.AbdomenArmor;
 import net.ltxprogrammer.changed.item.QuadrupedalArmor;
 import net.minecraft.client.model.geom.EntityModelSet;

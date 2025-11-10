@@ -8,11 +8,11 @@ import net.ltxprogrammer.changed.client.ChangedClient;
 import net.ltxprogrammer.changed.client.api.ClientLivingEntityExtender;
 import net.ltxprogrammer.changed.client.renderer.AdvancedHumanoidRenderer;
 import net.ltxprogrammer.changed.client.renderer.layers.PlayerLayerWrapper;
-import net.ltxprogrammer.changed.entity.LivingEntityDataExtension;
 import net.ltxprogrammer.changed.entity.animation.AnimationCategory;
+import net.ltxprogrammer.changed.entity.api.LivingEntityDataExtension;
 import net.ltxprogrammer.changed.init.ChangedAbilities;
 import net.ltxprogrammer.changed.init.ChangedEntityRenderers;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.ltxprogrammer.changed.util.EntityUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -107,7 +107,7 @@ public abstract class EntityRenderDispatcherMixin {
             }
         }
 
-        ProcessTransfur.ifPlayerTransfurred(EntityUtil.playerOrNull(entity), variant -> {
+        ProcessTransform.ifPlayerTransfurred(EntityUtil.playerOrNull(entity), variant -> {
             float morph = variant.getMorphProgression(partialTicks);
             float morphRadius = Mth.lerp(morph, radius, this.getRenderer(variant.getChangedEntity()).shadowRadius);
 

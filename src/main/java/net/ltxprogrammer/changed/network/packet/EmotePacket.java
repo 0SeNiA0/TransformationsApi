@@ -1,7 +1,7 @@
 package net.ltxprogrammer.changed.network.packet;
 
-import net.ltxprogrammer.changed.entity.Emote;
-import net.ltxprogrammer.changed.process.ProcessEmote;
+import net.ltxprogrammer.changed.emote.Emote;
+import net.ltxprogrammer.changed.emote.ProcessEmote;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.FriendlyByteBuf;

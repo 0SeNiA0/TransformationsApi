@@ -3,11 +3,11 @@ package net.ltxprogrammer.changed.mixin.entity;
 
 import com.mojang.authlib.GameProfile;
 import net.ltxprogrammer.changed.Changed;
-import net.ltxprogrammer.changed.client.api.LocalPlayerAccessor;
 import net.ltxprogrammer.changed.client.NullInput;
-import net.ltxprogrammer.changed.entity.LivingEntityDataExtension;
-import net.ltxprogrammer.changed.entity.PlayerDataExtension;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.client.api.LocalPlayerAccessor;
+import net.ltxprogrammer.changed.entity.api.LivingEntityDataExtension;
+import net.ltxprogrammer.changed.entity.api.PlayerDataExtension;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.ltxprogrammer.changed.util.EntityUtil;
 import net.minecraft.client.ClientRecipeBook;
 import net.minecraft.client.Minecraft;
@@ -56,7 +56,7 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer implements P
 
     @Inject(method = "getWaterVision", at = @At("RETURN"), cancellable = true)
     private void getWaterVision(CallbackInfoReturnable<Float> callback) {
-        ProcessTransfur.ifPlayerTransfurred(this, variant -> {
+        ProcessTransform.ifPlayerTransfurred(this, variant -> {
             if (!variant.getParent().getBreatheMode().canBreatheWater())
                 return;
             if (!this.isEyeInFluid(FluidTags.WATER))
@@ -75,7 +75,7 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer implements P
         LocalPlayer player = (LocalPlayer)(Object)this;
         if (!player.level.isClientSide) return;
 
-        ProcessTransfur.ifPlayerTransfurred(player, variant -> {
+        ProcessTransform.ifPlayerTransfurred(player, variant -> {
             if (player.getAttributeBaseValue(ForgeMod.SWIM_SPEED.get()) >= 1.1F && variant.getEntityShape().isLegless() && player.isUnderWater())
                 player.setSprinting(true);
         });
@@ -83,7 +83,7 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer implements P
 
     @Inject(method = "isMovingSlowly", at = @At("HEAD"), cancellable = true)
     public void isMovingSlowly(CallbackInfoReturnable<Boolean> callback) {
-        ProcessTransfur.ifPlayerTransfurred(this, variant -> {
+        ProcessTransform.ifPlayerTransfurred(this, variant -> {
             if (variant.getChangedEntity() != null)
                 callback.setReturnValue(variant.getChangedEntity().isMovingSlowly());
         });
@@ -108,7 +108,7 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer implements P
 
     @Inject(method = "hurtTo", at = @At("HEAD"))
     public void disableFlashOnTf(float health, CallbackInfo ci) {
-        ProcessTransfur.ifPlayerTransfurred(EntityUtil.playerOrNull(this), (player, variant) -> {
+        ProcessTransform.ifPlayerTransfurred(EntityUtil.playerOrNull(this), (player, variant) -> {
             if (variant.isTransfurring())
                 this.flashOnSetHealth = false;
         });

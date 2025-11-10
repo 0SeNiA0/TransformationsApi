@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.ltxprogrammer.changed.Changed;
 import net.ltxprogrammer.changed.ability.GrabEntityAbility;
 import net.ltxprogrammer.changed.client.tfanimations.TransfurAnimator;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.ltxprogrammer.changed.util.Color3;
 import net.ltxprogrammer.changed.util.EntityUtil;
 import net.minecraft.client.Minecraft;
@@ -78,7 +78,7 @@ public class TransfurProgressOverlay {
         float dangerLevel = 0;
         float coverProgress = 0.0f;
         Color3 morphColor = Color3.WHITE;
-        var variant = ProcessTransfur.getPlayerTransfurVariant(player);
+        var variant = ProcessTransform.getPlayerTransfurVariant(player);
         if (variant != null) {
             dangerLevel = 1.0f;
             coverProgress = TransfurAnimator.getCoverProgression(variant.getTransfurProgression(partialTick));

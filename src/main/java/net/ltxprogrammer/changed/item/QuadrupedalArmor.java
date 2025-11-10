@@ -1,7 +1,7 @@
 package net.ltxprogrammer.changed.item;
 
-import net.ltxprogrammer.changed.entity.variant.ClothingShape;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ClothingShape;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.ltxprogrammer.changed.util.EntityUtil;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
@@ -82,7 +82,7 @@ public class QuadrupedalArmor extends ArmorItem implements ExtendedItemPropertie
 
     @Override
     public boolean allowedToWear(ItemStack itemStack, LivingEntity wearer, EquipmentSlot slot) {
-        var instance = ProcessTransfur.getPlayerTransfurVariant(EntityUtil.playerOrNull(wearer));
+        var instance = ProcessTransform.getPlayerTransfurVariant(EntityUtil.playerOrNull(wearer));
         if (instance != null && !instance.shouldApplyAbilities())
             return false;
 

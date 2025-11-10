@@ -1,13 +1,13 @@
 package net.ltxprogrammer.changed.init;
 
 import net.ltxprogrammer.changed.Changed;
-import net.ltxprogrammer.changed.entity.ChangedEntity;
-import net.ltxprogrammer.changed.entity.TransfurMode;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
 import net.ltxprogrammer.changed.entity.beast.DarkLatexWolfFemale;
 import net.ltxprogrammer.changed.entity.beast.DarkLatexWolfMale;
 import net.ltxprogrammer.changed.entity.beast.DarkLatexWolfPup;
-import net.ltxprogrammer.changed.entity.variant.GenderedPair;
-import net.ltxprogrammer.changed.entity.variant.TransfurVariant;
+import net.ltxprogrammer.changed.transform.GenderedPair;
+import net.ltxprogrammer.changed.transform.TransfurMode;
+import net.ltxprogrammer.changed.transform.TransfurVariant;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;

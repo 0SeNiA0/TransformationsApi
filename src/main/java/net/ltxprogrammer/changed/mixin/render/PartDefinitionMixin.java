@@ -1,8 +1,8 @@
 package net.ltxprogrammer.changed.mixin.render;
 
+import net.ltxprogrammer.changed.client.Triangle;
 import net.ltxprogrammer.changed.client.api.CubeListBuilderExtender;
 import net.ltxprogrammer.changed.client.api.ModelPartExtender;
-import net.ltxprogrammer.changed.client.Triangle;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;

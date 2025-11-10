@@ -6,7 +6,7 @@ import net.ltxprogrammer.changed.data.AccessorySlotType;
 import net.ltxprogrammer.changed.data.AccessorySlots;
 import net.ltxprogrammer.changed.init.ChangedMenus;
 import net.ltxprogrammer.changed.init.ChangedRegistry;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -158,7 +158,7 @@ public class AccessoryAccessMenu extends AbstractContainerMenu {
         if (slot.getType() != EquipmentSlot.Type.ARMOR)
             return slot;
 
-        return ProcessTransfur.ifPlayerTransfurred(this.owner, variant -> {
+        return ProcessTransform.ifPlayerTransfurred(this.owner, variant -> {
             return variant.canWear(this.owner, itemStack, slot) ? slot : EquipmentSlot.MAINHAND;
         }, () -> slot);
     }

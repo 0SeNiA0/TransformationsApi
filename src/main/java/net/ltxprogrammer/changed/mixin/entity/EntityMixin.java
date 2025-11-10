@@ -5,13 +5,13 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.ltxprogrammer.changed.ability.AbstractAbility;
 import net.ltxprogrammer.changed.ability.GrabEntityAbility;
 import net.ltxprogrammer.changed.ability.IAbstractChangedEntity;
-import net.ltxprogrammer.changed.entity.ChangedEntity;
-import net.ltxprogrammer.changed.entity.LivingEntityDataExtension;
-import net.ltxprogrammer.changed.entity.variant.EntityShape;
-import net.ltxprogrammer.changed.entity.variant.TransfurVariantInstance;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
+import net.ltxprogrammer.changed.entity.api.LivingEntityDataExtension;
 import net.ltxprogrammer.changed.init.ChangedAbilities;
 import net.ltxprogrammer.changed.init.ChangedTags;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.EntityShape;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
+import net.ltxprogrammer.changed.transform.TransfurVariantInstance;
 import net.ltxprogrammer.changed.util.EntityUtil;
 import net.minecraft.commands.CommandSource;
 import net.minecraft.tags.FluidTags;
@@ -49,14 +49,14 @@ public abstract class EntityMixin extends net.minecraftforge.common.capabilities
 
     @Inject(method = "getTicksRequiredToFreeze", at = @At("HEAD"), cancellable = true)
     public void getTicksRequiredToFreeze(CallbackInfoReturnable<Integer> callback) {
-        ProcessTransfur.ifPlayerTransfurred(EntityUtil.playerOrNull(asEntity()), variant -> {
+        ProcessTransform.ifPlayerTransfurred(EntityUtil.playerOrNull(asEntity()), variant -> {
             callback.setReturnValue(variant.getChangedEntity().getTicksRequiredToFreeze());
         });
     }
 
     @Inject(method = "isSwimming", at = @At("HEAD"), cancellable = true)
     public void isSwimming(CallbackInfoReturnable<Boolean> ci) {
-        ProcessTransfur.ifPlayerTransfurred(EntityUtil.playerOrNull((Entity)(Object)this), variant -> {
+        ProcessTransform.ifPlayerTransfurred(EntityUtil.playerOrNull((Entity)(Object)this), variant -> {
             if (!variant.getChangedEntity().isAllowedToSwim())
                 ci.setReturnValue(false);
         });
@@ -68,7 +68,7 @@ public abstract class EntityMixin extends net.minecraftforge.common.capabilities
             callback.setReturnValue(dimensions.height * le.getEyeHeightMul());
         }
 
-        else ProcessTransfur.ifPlayerTransfurred(EntityUtil.playerOrNull(asEntity()), variant -> {
+        else ProcessTransform.ifPlayerTransfurred(EntityUtil.playerOrNull(asEntity()), variant -> {
             ChangedEntity ChangedEntity = variant.getChangedEntity();
             final float morphProgress = variant.getMorphProgression();
 
@@ -82,14 +82,14 @@ public abstract class EntityMixin extends net.minecraftforge.common.capabilities
 
     @Inject(method = "interact", at = @At("HEAD"), cancellable = true)
     public void interact(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> callback) {
-        ProcessTransfur.ifPlayerTransfurred(EntityUtil.playerOrNull(asEntity()), variant -> {
+        ProcessTransform.ifPlayerTransfurred(EntityUtil.playerOrNull(asEntity()), variant -> {
             callback.setReturnValue(variant.getChangedEntity().interact(player, hand));
         });
     }
 
     @Inject(method = "getPassengersRidingOffset", at = @At("HEAD"), cancellable = true)
     public void getPassengersRidingOffset(CallbackInfoReturnable<Double> callback) {
-        ProcessTransfur.ifPlayerTransfurred(EntityUtil.playerOrNull(asEntity()), variant -> {
+        ProcessTransform.ifPlayerTransfurred(EntityUtil.playerOrNull(asEntity()), variant -> {
             callback.setReturnValue(variant.getChangedEntity().getPassengersRidingOffset());
         });
     }
@@ -98,7 +98,7 @@ public abstract class EntityMixin extends net.minecraftforge.common.capabilities
     public void setVariantPose(Pose pose, Operation<Void> original) {
         original.call(pose);
         // Forward calls to setPose directly to variant, instead of waiting for tick
-        ProcessTransfur.getPlayerTransfurVariantSafe(EntityUtil.playerOrNull((Entity)(Object)this))
+        ProcessTransform.getPlayerTransfurVariantSafe(EntityUtil.playerOrNull((Entity)(Object)this))
                 .map(TransfurVariantInstance::getChangedEntity)
                 .ifPresent(entity -> entity.setPose(pose));
     }
@@ -116,7 +116,7 @@ public abstract class EntityMixin extends net.minecraftforge.common.capabilities
 
     @Inject(method = "getEyePosition()Lnet/minecraft/world/phys/Vec3;", at = @At("HEAD"), cancellable = true)
     public final void getEyePosition(CallbackInfoReturnable<Vec3> callback) {
-        ProcessTransfur.ifPlayerTransfurred(EntityUtil.playerOrNull(asEntity()), (player, variant) -> {
+        ProcessTransform.ifPlayerTransfurred(EntityUtil.playerOrNull(asEntity()), (player, variant) -> {
             float z = Mth.lerp(variant.getMorphProgression(), 0.0f, variant.getParent().cameraZOffset);
             if (Math.abs(z) < 0.0001f) return;
             if (isCallingIsInWall) return; // Ignore
@@ -129,7 +129,7 @@ public abstract class EntityMixin extends net.minecraftforge.common.capabilities
 
     @Inject(method = "getEyePosition(F)Lnet/minecraft/world/phys/Vec3;", at = @At("HEAD"), cancellable = true)
     public final void getEyePosition(float v, CallbackInfoReturnable<Vec3> callback) {
-        ProcessTransfur.ifPlayerTransfurred(EntityUtil.playerOrNull(asEntity()), (player, variant) -> {
+        ProcessTransform.ifPlayerTransfurred(EntityUtil.playerOrNull(asEntity()), (player, variant) -> {
             float z = Mth.lerp(variant.getMorphProgression(), 0.0f, variant.getParent().cameraZOffset);
             if (Math.abs(z) < 0.0001f) return;
             if (isCallingIsInWall) return; // Ignore

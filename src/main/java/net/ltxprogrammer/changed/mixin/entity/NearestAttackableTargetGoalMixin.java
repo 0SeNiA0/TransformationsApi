@@ -1,8 +1,8 @@
 package net.ltxprogrammer.changed.mixin.entity;
 
-import net.ltxprogrammer.changed.entity.ChangedEntity;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
 import net.ltxprogrammer.changed.init.ChangedTags;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
@@ -26,7 +26,7 @@ public abstract class NearestAttackableTargetGoalMixin<T extends LivingEntity> {
         if (!(self instanceof PathfinderMob pathfinderMob)) return;
 
         final Predicate<LivingEntity> scaryPredicate = livingEntity -> {
-            return ProcessTransfur.getEntityVariant(livingEntity)
+            return ProcessTransform.getEntityVariant(livingEntity)
                     .map(variant -> variant.scares.stream().noneMatch(clazz -> clazz.isAssignableFrom(pathfinderMob.getClass())))
                     .orElse(true);
         };

@@ -4,7 +4,7 @@ import com.mojang.datafixers.util.Either;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector4f;
 import net.ltxprogrammer.changed.Changed;
-import net.ltxprogrammer.changed.entity.PlayerDataExtension;
+import net.ltxprogrammer.changed.entity.api.PlayerDataExtension;
 import net.ltxprogrammer.changed.network.packet.TugCameraPacket;
 import net.minecraft.Util;
 import net.minecraft.commands.arguments.EntityAnchorArgument;

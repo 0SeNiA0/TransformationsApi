@@ -9,7 +9,6 @@ import net.ltxprogrammer.changed.client.renderer.model.armor.ArmorLatexFemaleWol
 import net.ltxprogrammer.changed.client.renderer.model.armor.ArmorLatexMaleWolfModel;
 import net.ltxprogrammer.changed.client.renderer.model.armor.ArmorNoTailModel;
 import net.ltxprogrammer.changed.client.renderer.model.armor.ArmorNoneModel;
-import net.ltxprogrammer.changed.client.renderer.model.hair.HairRemodel;
 import net.ltxprogrammer.changed.client.tfanimations.TransfurHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;

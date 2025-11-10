@@ -1,8 +1,8 @@
 package net.ltxprogrammer.changed.mixin.client;
 
-import net.ltxprogrammer.changed.client.api.ClientLivingEntityExtender;
 import net.ltxprogrammer.changed.client.animations.AnimationDefinition;
 import net.ltxprogrammer.changed.client.animations.AnimationInstance;
+import net.ltxprogrammer.changed.client.api.ClientLivingEntityExtender;
 import net.ltxprogrammer.changed.entity.animation.AnimationCategory;
 import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.Nullable;

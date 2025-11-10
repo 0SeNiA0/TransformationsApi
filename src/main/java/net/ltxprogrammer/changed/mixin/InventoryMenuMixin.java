@@ -1,6 +1,6 @@
 package net.ltxprogrammer.changed.mixin;
 
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -29,7 +29,7 @@ public abstract class InventoryMenuMixin extends RecipeBookMenu<CraftingContaine
         if (slot.getType() != EquipmentSlot.Type.ARMOR)
             return slot;
 
-        return ProcessTransfur.ifPlayerTransfurred(this.owner, variant -> {
+        return ProcessTransform.ifPlayerTransfurred(this.owner, variant -> {
             return variant.canWear(this.owner, itemStack, slot) ? slot : EquipmentSlot.MAINHAND;
         }, () -> slot);
     }

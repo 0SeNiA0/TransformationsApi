@@ -1,9 +1,9 @@
 package net.ltxprogrammer.changed.mixin.render;
 
 import com.mojang.math.Vector3f;
+import net.ltxprogrammer.changed.client.Triangle;
 import net.ltxprogrammer.changed.client.api.CubeDefinitionExtender;
 import net.ltxprogrammer.changed.client.api.CubeListBuilderExtender;
-import net.ltxprogrammer.changed.client.Triangle;
 import net.minecraft.client.model.geom.builders.CubeDefinition;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.UVPair;

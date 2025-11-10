@@ -4,9 +4,9 @@ import net.ltxprogrammer.changed.ability.AbstractAbility;
 import net.ltxprogrammer.changed.ability.AbstractAbilityInstance;
 import net.ltxprogrammer.changed.client.api.AbilityColor;
 import net.ltxprogrammer.changed.client.gui.AbstractRadialScreen;
-import net.ltxprogrammer.changed.entity.TransfurMode;
 import net.ltxprogrammer.changed.init.ChangedAbilities;
 import net.ltxprogrammer.changed.init.ChangedRegistry;
+import net.ltxprogrammer.changed.transform.TransfurMode;
 
 import java.util.Collection;
 import java.util.Optional;

@@ -2,9 +2,9 @@ package net.ltxprogrammer.changed.client.gui;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.ltxprogrammer.changed.Changed;
-import net.ltxprogrammer.changed.entity.BasicPlayerInfo;
-import net.ltxprogrammer.changed.entity.EyeStyle;
 import net.ltxprogrammer.changed.network.packet.BasicPlayerInfoPacket;
+import net.ltxprogrammer.changed.transform.BasicPlayerInfo;
+import net.ltxprogrammer.changed.transform.EyeStyle;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Checkbox;

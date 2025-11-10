@@ -1,7 +1,7 @@
 package net.ltxprogrammer.changed.entity.beast;
 
-import net.ltxprogrammer.changed.entity.AttributePresets;
-import net.ltxprogrammer.changed.entity.GenderedEntity;
+import net.ltxprogrammer.changed.entity.api.AttributePresets;
+import net.ltxprogrammer.changed.entity.api.GenderedEntity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.level.Level;

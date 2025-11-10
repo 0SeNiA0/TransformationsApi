@@ -1,7 +1,7 @@
 package net.ltxprogrammer.changed.mixin.server;
 
 import net.ltxprogrammer.changed.Changed;
-import net.ltxprogrammer.changed.entity.ChangedEntity;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
 import net.ltxprogrammer.changed.network.packet.TransfurEntityEventPacket;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;

@@ -5,12 +5,12 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.mojang.authlib.GameProfile;
 import net.ltxprogrammer.changed.Changed;
 import net.ltxprogrammer.changed.data.AccessorySlots;
-import net.ltxprogrammer.changed.entity.PlayerDataExtension;
-import net.ltxprogrammer.changed.entity.variant.TransfurVariant;
-import net.ltxprogrammer.changed.entity.variant.TransfurVariantInstance;
+import net.ltxprogrammer.changed.entity.api.PlayerDataExtension;
 import net.ltxprogrammer.changed.init.*;
 import net.ltxprogrammer.changed.network.packet.MountTransfurPacket;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
+import net.ltxprogrammer.changed.transform.TransfurVariant;
+import net.ltxprogrammer.changed.transform.TransfurVariantInstance;
 import net.ltxprogrammer.changed.util.TagUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -45,13 +45,13 @@ public abstract class ServerPlayerMixin extends Player implements PlayerDataExte
     public void restoreFrom(ServerPlayer player, boolean restore, CallbackInfo callbackInfo) {
         ServerPlayer self = (ServerPlayer)(Object)this;
         if (player.level.getGameRules().getBoolean(ChangedGameRules.RULE_KEEP_FORM) || restore) {
-            ProcessTransfur.ifPlayerTransfurred(player, oldVariant -> {
+            ProcessTransform.ifPlayerTransfurred(player, oldVariant -> {
                 if (!oldVariant.willSurviveTransfur)
                     return;
                 if (!restore && oldVariant.getParent().is(ChangedTags.TransfurVariants.TEMPORARY_ONLY))
                     return; // Exception to keepForm gamerule
 
-                var newVariant = ProcessTransfur.setPlayerTransfurVariant(self, oldVariant.getParent(), oldVariant.transfurContext, oldVariant.transfurProgression);
+                var newVariant = ProcessTransform.setPlayerTransfurVariant(self, oldVariant.getParent(), oldVariant.transfurContext, oldVariant.transfurProgression);
                 if (newVariant == null)
                     return;
                 newVariant.load(oldVariant.save());
@@ -96,7 +96,7 @@ public abstract class ServerPlayerMixin extends Player implements PlayerDataExte
                 Changed.LOGGER.warn("Missing transfur variant registry entry for {}, falling back", variantId);
                 variant = ChangedTransfurVariants.FALLBACK_VARIANT.get();
             }
-            final TransfurVariantInstance<?> variantInstance = ProcessTransfur.setPlayerTransfurVariant(this, variant, null, 1.0f, false,
+            final TransfurVariantInstance<?> variantInstance = ProcessTransform.setPlayerTransfurVariant(this, variant, null, 1.0f, false,
                     entity -> {
                         if (tag.contains("Leash", 10))
                             entity.setLeashInfoTag(tag.getCompound("Leash"));
@@ -122,9 +122,9 @@ public abstract class ServerPlayerMixin extends Player implements PlayerDataExte
     protected void readAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
         if (tag.contains("TransfurProgress")) {
             if (tag.get("TransfurProgress") instanceof IntTag intTag) { // Adapt to old progress saving method
-                ProcessTransfur.setPlayerTransfurProgress(this, (float)intTag.getAsInt() * 0.001f);
+                ProcessTransform.setPlayerTransfurProgress(this, (float)intTag.getAsInt() * 0.001f);
             } else if (tag.get("TransfurProgress") instanceof FloatTag floatTag) {
-                ProcessTransfur.setPlayerTransfurProgress(this, floatTag.getAsFloat());
+                ProcessTransform.setPlayerTransfurProgress(this, floatTag.getAsFloat());
             }
         }
 
@@ -133,8 +133,8 @@ public abstract class ServerPlayerMixin extends Player implements PlayerDataExte
 
     @Inject(method = "addAdditionalSaveData", at = @At("RETURN"))
     protected void addAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
-        tag.putFloat("TransfurProgress", ProcessTransfur.getPlayerTransfurProgress(this));
-        ProcessTransfur.ifPlayerTransfurred(this, variant -> {
+        tag.putFloat("TransfurProgress", ProcessTransform.getPlayerTransfurProgress(this));
+        ProcessTransform.ifPlayerTransfurred(this, variant -> {
             TagUtil.putResourceLocation(tag, "TransfurVariant", variant.getFormId());
             tag.put("TransfurVariantData", variant.save());
 

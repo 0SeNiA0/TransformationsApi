@@ -7,7 +7,7 @@ import net.ltxprogrammer.changed.client.renderer.AdvancedHumanoidRenderer;
 import net.ltxprogrammer.changed.client.renderer.model.AdvancedHumanoidModel;
 import net.ltxprogrammer.changed.client.renderer.model.AdvancedHumanoidModelInterface;
 import net.ltxprogrammer.changed.extension.RequiredMods;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -52,7 +52,7 @@ public abstract class RenderEventsMixin {
     private Optional<Pair<ModelPart, ResourceLocation>> remapHumanoidPart(ModelPart part) {
         PlayerModel<AbstractClientPlayer> playerModel = getRenderPlayer((AbstractClientPlayer) currentPlayer).getModel();
 
-        return Optional.ofNullable(ProcessTransfur.ifPlayerTransfurred(currentPlayer, variant -> {
+        return Optional.ofNullable(ProcessTransform.ifPlayerTransfurred(currentPlayer, variant -> {
             EntityRenderer renderer = Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(variant.getChangedEntity());
             if (renderer instanceof AdvancedHumanoidRenderer<?,?,?> advanced) {
                 var changedModel = advanced.getModel(variant.getChangedEntity());
@@ -99,7 +99,7 @@ public abstract class RenderEventsMixin {
 
     @Redirect(method = "onRenderLevel", at = @At(value = "INVOKE", target = "Ltschipp/carryon/client/helper/CarryRenderHelper;renderItem(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/nbt/CompoundTag;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/client/resources/model/BakedModel;)V"))
     public void maybeOffsetItem(BlockState state, CompoundTag tag, ItemStack stack, ItemStack tileStack, PoseStack matrix, MultiBufferSource buffer, int light, BakedModel model) {
-        ProcessTransfur.ifPlayerTransfurred(currentPlayer, variant -> {
+        ProcessTransform.ifPlayerTransfurred(currentPlayer, variant -> {
             matrix.pushPose(); // reset matrix to entity
             EntityRenderer renderer = Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(variant.getChangedEntity());
             if (renderer instanceof AdvancedHumanoidRenderer<?,?,?> advanced) {

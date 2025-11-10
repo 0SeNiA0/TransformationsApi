@@ -1,6 +1,6 @@
 package net.ltxprogrammer.changed.network.syncher;
 
-import net.ltxprogrammer.changed.entity.BasicPlayerInfo;
+import net.ltxprogrammer.changed.transform.BasicPlayerInfo;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.syncher.EntityDataSerializer;

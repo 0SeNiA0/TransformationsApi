@@ -2,8 +2,8 @@ package net.ltxprogrammer.changed.network.packet;
 
 import com.mojang.datafixers.util.Pair;
 import net.ltxprogrammer.changed.Changed;
-import net.ltxprogrammer.changed.entity.BasicPlayerInfo;
-import net.ltxprogrammer.changed.entity.PlayerDataExtension;
+import net.ltxprogrammer.changed.entity.api.PlayerDataExtension;
+import net.ltxprogrammer.changed.transform.BasicPlayerInfo;
 import net.ltxprogrammer.changed.util.UniversalDist;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;

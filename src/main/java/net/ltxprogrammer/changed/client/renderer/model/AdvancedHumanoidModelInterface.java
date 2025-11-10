@@ -2,7 +2,7 @@ package net.ltxprogrammer.changed.client.renderer.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.ltxprogrammer.changed.client.renderer.animate.HumanoidAnimator;
-import net.ltxprogrammer.changed.entity.ChangedEntity;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
 
 public interface AdvancedHumanoidModelInterface<T extends ChangedEntity, M extends AdvancedHumanoidModel<T>> {
     @Deprecated

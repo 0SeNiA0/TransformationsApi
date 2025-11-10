@@ -1,8 +1,8 @@
 package net.ltxprogrammer.changed.mixin.entity;
 
-import net.ltxprogrammer.changed.entity.ChangedEntity;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
 import net.ltxprogrammer.changed.init.ChangedTags;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.world.entity.Entity;
@@ -36,7 +36,7 @@ public abstract class MobMixin extends LivingEntity {
                 if (ironGolem.isPlayerCreated())
                     return false;
                 if (livingEntity instanceof Player player)
-                    return !ProcessTransfur.isPlayerNotLatex(player);
+                    return !ProcessTransform.isPlayerNotLatex(player);
                 else return false;
             }));
     }

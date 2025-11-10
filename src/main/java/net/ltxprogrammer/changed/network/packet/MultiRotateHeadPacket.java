@@ -1,7 +1,7 @@
 package net.ltxprogrammer.changed.network.packet;
 
 import net.ltxprogrammer.changed.ability.IAbstractChangedEntity;
-import net.ltxprogrammer.changed.entity.beast.DoubleHeadedEntity;
+import net.ltxprogrammer.changed.entity.api.DoubleHeadedEntity;
 import net.ltxprogrammer.changed.util.UniversalDist;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.Entity;

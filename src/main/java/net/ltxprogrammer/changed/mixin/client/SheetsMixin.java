@@ -1,7 +1,7 @@
 package net.ltxprogrammer.changed.mixin.client;
 
 import net.ltxprogrammer.changed.Changed;
-import net.ltxprogrammer.changed.entity.variant.ClothingShape;
+import net.ltxprogrammer.changed.transform.ClothingShape;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.resources.ResourceLocation;

@@ -1,14 +1,14 @@
 package net.ltxprogrammer.changed.client.renderer.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.ltxprogrammer.changed.client.api.ClientLivingEntityExtender;
 import net.ltxprogrammer.changed.client.ModelPartStem;
-import net.ltxprogrammer.changed.client.api.PoseStackExtender;
 import net.ltxprogrammer.changed.client.animations.Limb;
+import net.ltxprogrammer.changed.client.api.ClientLivingEntityExtender;
+import net.ltxprogrammer.changed.client.api.PoseStackExtender;
 import net.ltxprogrammer.changed.client.renderer.animate.HumanoidAnimator;
 import net.ltxprogrammer.changed.client.tfanimations.HelperModel;
 import net.ltxprogrammer.changed.client.tfanimations.TransfurHelper;
-import net.ltxprogrammer.changed.entity.ChangedEntity;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
 import net.ltxprogrammer.changed.extension.ChangedCompatibility;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HeadedModel;

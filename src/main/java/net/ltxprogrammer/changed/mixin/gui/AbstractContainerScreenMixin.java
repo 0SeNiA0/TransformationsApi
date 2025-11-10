@@ -3,8 +3,8 @@ package net.ltxprogrammer.changed.mixin.gui;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
 import net.ltxprogrammer.changed.menu.SlotWrapper;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.MenuAccess;
@@ -53,7 +53,7 @@ public abstract class AbstractContainerScreenMixin<T extends AbstractContainerMe
             return; // Process as normal
 
         if (slot.container instanceof Inventory inventory) {
-            ProcessTransfur.ifPlayerTransfurred(inventory.player, variant -> {
+            ProcessTransform.ifPlayerTransfurred(inventory.player, variant -> {
                 var material = slot.getNoItemIcon();
                 if (material == null)
                     return;

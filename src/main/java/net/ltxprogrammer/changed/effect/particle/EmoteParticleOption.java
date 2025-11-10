@@ -4,7 +4,7 @@ import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.ltxprogrammer.changed.entity.Emote;
+import net.ltxprogrammer.changed.emote.Emote;
 import net.ltxprogrammer.changed.util.UniversalDist;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;

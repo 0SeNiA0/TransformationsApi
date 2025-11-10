@@ -1,7 +1,7 @@
 package net.ltxprogrammer.changed.entity.beast;
 
-import net.ltxprogrammer.changed.entity.Gender;
-import net.ltxprogrammer.changed.entity.TransfurMode;
+import net.ltxprogrammer.changed.transform.Gender;
+import net.ltxprogrammer.changed.transform.TransfurMode;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 

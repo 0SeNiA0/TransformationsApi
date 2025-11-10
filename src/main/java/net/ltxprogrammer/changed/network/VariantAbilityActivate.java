@@ -3,10 +3,10 @@ package net.ltxprogrammer.changed.network;
 import net.ltxprogrammer.changed.Changed;
 import net.ltxprogrammer.changed.ability.AbstractAbility;
 import net.ltxprogrammer.changed.init.ChangedRegistry;
-import net.ltxprogrammer.changed.network.packet.ChangedPacket;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
-import net.ltxprogrammer.changed.util.UniversalDist;
 import net.ltxprogrammer.changed.menu.AbilityRadialMenu;
+import net.ltxprogrammer.changed.network.packet.ChangedPacket;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
+import net.ltxprogrammer.changed.util.UniversalDist;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
@@ -59,7 +59,7 @@ public class VariantAbilityActivate implements ChangedPacket {
                 if (!sender.getUUID().equals(this.uuid))
                     return;
 
-                ProcessTransfur.ifPlayerTransfurred(sender, (variant) -> {
+                ProcessTransform.ifPlayerTransfurred(sender, (variant) -> {
                     context.setPacketHandled(true);
                     if (variant.isTemporaryFromSuit())
                         return;
@@ -78,7 +78,7 @@ public class VariantAbilityActivate implements ChangedPacket {
                     Changed.PACKET_HANDLER.send(PacketDistributor.TRACKING_ENTITY.with(() -> sender), this);
                 });
             } else { // Client
-                ProcessTransfur.ifPlayerTransfurred(UniversalDist.getLevel().getPlayerByUUID(this.uuid), (player, variant) -> {
+                ProcessTransform.ifPlayerTransfurred(UniversalDist.getLevel().getPlayerByUUID(this.uuid), (player, variant) -> {
                     context.setPacketHandled(true);
                     if (variant.isTemporaryFromSuit())
                         return;

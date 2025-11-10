@@ -2,7 +2,7 @@ package net.ltxprogrammer.changed.init;
 
 import com.mojang.datafixers.util.Pair;
 import net.ltxprogrammer.changed.Changed;
-import net.ltxprogrammer.changed.entity.ChangedEntity;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
 import net.ltxprogrammer.changed.entity.beast.DarkLatexWolfFemale;
 import net.ltxprogrammer.changed.entity.beast.DarkLatexWolfMale;
 import net.ltxprogrammer.changed.entity.beast.DarkLatexWolfPup;
@@ -30,7 +30,7 @@ import java.util.Map;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-import static net.ltxprogrammer.changed.entity.variant.TransfurVariant.getNextEntId;
+import static net.ltxprogrammer.changed.transform.TransfurVariant.getNextEntId;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ChangedEntities {

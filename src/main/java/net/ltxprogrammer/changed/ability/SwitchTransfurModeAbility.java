@@ -1,6 +1,6 @@
 package net.ltxprogrammer.changed.ability;
 
-import net.ltxprogrammer.changed.entity.TransfurMode;
+import net.ltxprogrammer.changed.transform.TransfurMode;
 import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;

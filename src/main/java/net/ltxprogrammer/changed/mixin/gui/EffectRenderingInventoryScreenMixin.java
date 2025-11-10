@@ -5,7 +5,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.ltxprogrammer.changed.Changed;
 import net.ltxprogrammer.changed.client.gui.AbstractRadialScreen;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen;
 import net.minecraft.network.chat.Component;
@@ -34,8 +34,8 @@ public abstract class EffectRenderingInventoryScreenMixin<T extends AbstractCont
     private void renderBackgrounds(PoseStack poseStack, int x, int height, Iterable<MobEffectInstance> effects, boolean wide, CallbackInfo callback) {
         if (!Changed.config.client.useGoopyInventory.get())
             return;
-        ProcessTransfur.ifPlayerTransfurred(this.minecraft.player, variant -> {
-            if (ProcessTransfur.isPlayerNotLatex(this.minecraft.player))
+        ProcessTransform.ifPlayerTransfurred(this.minecraft.player, variant -> {
+            if (ProcessTransform.isPlayerNotLatex(this.minecraft.player))
                 return;
 
             var colorPair = AbstractRadialScreen.getColors(variant);

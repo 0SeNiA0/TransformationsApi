@@ -7,13 +7,9 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import net.ltxprogrammer.changed.Changed;
-import net.ltxprogrammer.changed.entity.TransfurCause;
-import net.ltxprogrammer.changed.entity.TransfurContext;
-import net.ltxprogrammer.changed.entity.variant.TransfurVariant;
-import net.ltxprogrammer.changed.entity.variant.TransfurVariantInstance;
 import net.ltxprogrammer.changed.extension.ChangedCompatibility;
 import net.ltxprogrammer.changed.init.ChangedRegistry;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.*;
 import net.minecraft.Util;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -111,7 +107,7 @@ public class CommandTransfur {
             form = Util.getRandom(TransfurVariant.getPublicTransfurVariants().collect(Collectors.toList()), player.getRandom()).getFormId();
 
         if (TransfurVariant.getPublicTransfurVariants().map(TransfurVariant::getRegistryName).anyMatch(form::equals)) {
-            ProcessTransfur.transfur(player, source.getLevel(), ChangedRegistry.TRANSFUR_VARIANT.get().getValue(form), true,
+            ProcessTransform.transfur(player, source.getLevel(), ChangedRegistry.TRANSFUR_VARIANT.get().getValue(form), true,
                     TransfurContext.hazard(cause));
         } else
             throw NOT_LATEX_FORM.create();
@@ -148,9 +144,9 @@ public class CommandTransfur {
         if (ChangedCompatibility.isPlayerUsedByOtherMod(player))
             throw USED_BY_OTHER_MOD.create();
 
-        float progress = ProcessTransfur.getPlayerTransfurProgress(player);
+        float progress = ProcessTransform.getPlayerTransfurProgress(player);
         if (progress > 0.0f)
-            ProcessTransfur.setPlayerTransfurProgress(player, Math.max(progress - regression, 0.0f));
+            ProcessTransform.setPlayerTransfurProgress(player, Math.max(progress - regression, 0.0f));
 
         return Command.SINGLE_SUCCESS;
     }
@@ -178,10 +174,10 @@ public class CommandTransfur {
     }
 
     private static int untransfurPlayer(CommandSourceStack source, ServerPlayer player) {
-        return ProcessTransfur.ifPlayerTransfurred(player, variant -> {
+        return ProcessTransform.ifPlayerTransfurred(player, variant -> {
             variant.unhookAll(player);
-            ProcessTransfur.removePlayerTransfurVariant(player);
-            ProcessTransfur.setPlayerTransfurProgress(player, 0.0f);
+            ProcessTransform.removePlayerTransfurVariant(player);
+            ProcessTransform.setPlayerTransfurProgress(player, 0.0f);
         }) ? Command.SINGLE_SUCCESS : 0;
     }
 
@@ -202,7 +198,7 @@ public class CommandTransfur {
     }
 
     private static int getTransfur(CommandSourceStack source, ServerPlayer player, Predicate<TransfurVariantInstance<?>> test) {
-        return ProcessTransfur.getPlayerTransfurVariantSafe(player).filter(test).map(instance -> {
+        return ProcessTransform.getPlayerTransfurVariantSafe(player).filter(test).map(instance -> {
             source.sendSuccess(new TextComponent(player.getScoreboardName() + ": " + instance.getFormId().toString()), false);
             return 1;
         }).orElse(0);

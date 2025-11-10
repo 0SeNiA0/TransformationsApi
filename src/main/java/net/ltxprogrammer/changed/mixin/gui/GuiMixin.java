@@ -7,7 +7,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.ltxprogrammer.changed.Changed;
 import net.ltxprogrammer.changed.client.gui.AbstractRadialScreen;
 import net.ltxprogrammer.changed.client.gui.VariantRadialScreen;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiComponent;
@@ -56,9 +56,9 @@ public abstract class GuiMixin extends GuiComponent {
             return;
 
         if (Minecraft.getInstance().getCameraEntity() instanceof Player player) {
-            if (ProcessTransfur.isPlayerNotLatex(player))
+            if (ProcessTransform.isPlayerNotLatex(player))
                 return;
-            ProcessTransfur.ifPlayerTransfurred(player, variant -> {
+            ProcessTransform.ifPlayerTransfurred(player, variant -> {
                 var colors = VariantRadialScreen.getColors(variant);
                 var color = type == Gui.HeartType.NORMAL ? colors.background() : colors.foreground();
                 RenderSystem.setShaderTexture(0, GUI_LATEX_HEARTS);
@@ -76,8 +76,8 @@ public abstract class GuiMixin extends GuiComponent {
     protected void renderEffects(PoseStack poseStack, CallbackInfo callback) {
         if (!Changed.config.client.useGoopyInventory.get())
             return;
-        ProcessTransfur.ifPlayerTransfurred(this.minecraft.player, variant -> {
-            if (ProcessTransfur.isPlayerNotLatex(this.minecraft.player))
+        ProcessTransform.ifPlayerTransfurred(this.minecraft.player, variant -> {
+            if (ProcessTransform.isPlayerNotLatex(this.minecraft.player))
                 return;
 
             var colorPair = AbstractRadialScreen.getColors(variant);
@@ -161,7 +161,7 @@ public abstract class GuiMixin extends GuiComponent {
 
     @Inject(method = "renderHotbar", at = @At("HEAD"), cancellable = true)
     protected void renderHotbar(float partialTicks, PoseStack pose, CallbackInfo callback) {
-        ProcessTransfur.ifPlayerTransfurred(this.minecraft.player, variant -> {
+        ProcessTransform.ifPlayerTransfurred(this.minecraft.player, variant -> {
             if (!variant.getItemUseMode().showHotbar) {
                 callback.cancel();
                 
@@ -179,7 +179,7 @@ public abstract class GuiMixin extends GuiComponent {
 
     @Inject(method = "renderSelectedItemName", at = @At("HEAD"), cancellable = true)
     public void renderSelectedItemName(PoseStack pose, CallbackInfo callback) {
-        ProcessTransfur.ifPlayerTransfurred(this.minecraft.player, variant -> {
+        ProcessTransform.ifPlayerTransfurred(this.minecraft.player, variant -> {
             if (!variant.getItemUseMode().showHotbar)
                 callback.cancel();
         });

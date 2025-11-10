@@ -4,9 +4,9 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.teamabnormals.personality.common.CommonEvents;
-import net.ltxprogrammer.changed.entity.ChangedEntity;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
 import net.ltxprogrammer.changed.extension.RequiredMods;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.ltxprogrammer.changed.util.EntityUtil;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.Pose;
@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public class PersonalityClientEventsMixin<T extends ChangedEntity> {
     @WrapOperation(method = "onEntitySize", at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/player/Player;STANDING_DIMENSIONS:Lnet/minecraft/world/entity/EntityDimensions;", remap = true))
     private static EntityDimensions applyPersonalitySizeEvent(Operation<EntityDimensions> original, @Local(argsOnly = true) EntityEvent.Size event) {
-        return ProcessTransfur.getPlayerTransfurVariantSafe(EntityUtil.playerOrNull(event.getEntity()))
+        return ProcessTransform.getPlayerTransfurVariantSafe(EntityUtil.playerOrNull(event.getEntity()))
                 .map(variant -> variant.getTransfurDimensions(Pose.STANDING))
                 .orElseGet(original::call);
     }

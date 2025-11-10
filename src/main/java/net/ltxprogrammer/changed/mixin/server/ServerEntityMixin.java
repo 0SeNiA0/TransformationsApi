@@ -2,12 +2,12 @@ package net.ltxprogrammer.changed.mixin.server;
 
 import net.ltxprogrammer.changed.Changed;
 import net.ltxprogrammer.changed.ability.IAbstractChangedEntity;
-import net.ltxprogrammer.changed.entity.LivingEntityDataExtension;
-import net.ltxprogrammer.changed.entity.beast.DoubleHeadedEntity;
+import net.ltxprogrammer.changed.entity.api.DoubleHeadedEntity;
+import net.ltxprogrammer.changed.entity.api.LivingEntityDataExtension;
 import net.ltxprogrammer.changed.network.packet.AccessorySyncPacket;
 import net.ltxprogrammer.changed.network.packet.MultiRotateHeadPacket;
 import net.ltxprogrammer.changed.network.packet.SetTransfurVariantDataPacket;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.ltxprogrammer.changed.util.EntityUtil;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -32,7 +32,7 @@ public abstract class ServerEntityMixin {
 
     @Inject(method = "sendDirtyEntityData", at = @At("RETURN"))
     private void andSendLatexVariant(CallbackInfo ci) {
-        ProcessTransfur.ifPlayerTransfurred(EntityUtil.playerOrNull(this.entity), variant -> {
+        ProcessTransform.ifPlayerTransfurred(EntityUtil.playerOrNull(this.entity), variant -> {
             var entity = variant.getChangedEntity();
 
             SynchedEntityData synchedentitydata = entity.getEntityData();

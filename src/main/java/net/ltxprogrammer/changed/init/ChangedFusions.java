@@ -3,7 +3,7 @@ package net.ltxprogrammer.changed.init;
 import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Either;
 import net.ltxprogrammer.changed.Changed;
-import net.ltxprogrammer.changed.entity.variant.TransfurVariant;
+import net.ltxprogrammer.changed.transform.TransfurVariant;
 import net.ltxprogrammer.changed.util.ResourceUtil;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;

@@ -3,6 +3,9 @@ package net.ltxprogrammer.changed.entity.animation;
 import net.minecraft.world.entity.LivingEntity;
 
 public interface AnimationParameters {
+
+    AnimationParameters EMPTY = association -> AnimationAssociation.Match.DEFAULT;
+
     AnimationAssociation.Match matchesAssociation(AnimationAssociation association);
 
     default boolean shouldEndAnimation(LivingEntity livingEntity, float totalTime) {

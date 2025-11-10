@@ -1,8 +1,8 @@
 package net.ltxprogrammer.changed.item;
 
-import net.ltxprogrammer.changed.entity.variant.TransfurVariant;
 import net.ltxprogrammer.changed.init.ChangedSounds;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
+import net.ltxprogrammer.changed.transform.TransfurVariant;
 import net.ltxprogrammer.changed.util.ItemUtil;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -16,7 +16,7 @@ public interface LatexFusingItem extends ExtendedItemProperties {
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
     class Event {
         @SubscribeEvent
-        static void onVariantAssigned(ProcessTransfur.EntityVariantAssigned event) {
+        static void onVariantAssigned(ProcessTransform.EntityVariantAssigned event) {
             if (event.isRedundant())
                 return;
             if (event.variant == null)

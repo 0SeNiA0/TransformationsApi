@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public record Color3(float red, float green, float blue) {
+
     public static final Codec<Color3> CODEC = Codec.INT.xmap(Color3::fromInt, Color3::toInt);
     public static final Map<String, Color3> NAMED_COLORS = new HashMap<>();
 
@@ -33,7 +34,7 @@ public record Color3(float red, float green, float blue) {
 
     @Nullable
     public static Color3 parseHex(String tag) {
-        if (tag.length() > 0) {
+        if (!tag.isEmpty()) {
             if (tag.charAt(0) == '#')
                 tag = tag.substring(1);
 

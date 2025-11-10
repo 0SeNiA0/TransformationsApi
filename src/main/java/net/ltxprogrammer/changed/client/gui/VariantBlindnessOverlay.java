@@ -6,8 +6,8 @@ import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
-import net.ltxprogrammer.changed.entity.VisionType;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
+import net.ltxprogrammer.changed.transform.VisionType;
 import net.ltxprogrammer.changed.util.Color3;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
@@ -30,9 +30,9 @@ public class VariantBlindnessOverlay {
     public static void eventHandler(RenderGameOverlayEvent.Pre event) {
         if (event.getType() == RenderGameOverlayEvent.ElementType.ALL) {
             Player player = Minecraft.getInstance().player;
-            if (!ProcessTransfur.isPlayerTransfurred(player))
+            if (!ProcessTransform.isPlayerTransfurred(player))
                 return;
-            var variant = ProcessTransfur.getPlayerTransfurVariant(player);
+            var variant = ProcessTransform.getPlayerTransfurVariant(player);
             if (variant == null)
                 return;
             if (player.hasEffect(MobEffects.NIGHT_VISION))

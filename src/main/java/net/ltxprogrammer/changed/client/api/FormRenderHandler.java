@@ -8,9 +8,9 @@ import net.ltxprogrammer.changed.client.renderer.model.AdvancedHumanoidModel;
 import net.ltxprogrammer.changed.client.renderer.model.AdvancedHumanoidModelInterface;
 import net.ltxprogrammer.changed.client.renderer.model.CorrectorType;
 import net.ltxprogrammer.changed.client.tfanimations.TransfurAnimator;
-import net.ltxprogrammer.changed.entity.ChangedEntity;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
 import net.ltxprogrammer.changed.extension.ChangedCompatibility;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;
 import net.minecraft.ReportedException;
@@ -34,7 +34,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public abstract class FormRenderHandler {
     public static void renderForm(Player player, PoseStack stack, MultiBufferSource buffer, int light, float partialTick) {
-        ProcessTransfur.ifPlayerTransfurred(player, variant -> {
+        ProcessTransform.ifPlayerTransfurred(player, variant -> {
             ChangedCompatibility.freezeIsFirstPersonRendering();
             variant.sync(player);
             variant.getChangedEntity().setCustomNameVisible(true);
@@ -134,7 +134,7 @@ public abstract class FormRenderHandler {
     public static boolean maybeRenderHand(PlayerRenderer playerRenderer, PoseStack stack, MultiBufferSource buffer, int light, AbstractClientPlayer player, ModelPart arm, ModelPart sleeve) {
         if (renderingHand) return false;
 
-        return ProcessTransfur.ifPlayerTransfurred(player, variant -> {
+        return ProcessTransform.ifPlayerTransfurred(player, variant -> {
             if (player == Minecraft.getInstance().getCameraEntity()) {
                 float partialTick = Minecraft.getInstance().getDeltaFrameTime();
                 HumanoidArm handSide = playerRenderer.getModel().rightArm != arm ? HumanoidArm.LEFT : HumanoidArm.RIGHT;

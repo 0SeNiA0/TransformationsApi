@@ -1,11 +1,11 @@
 package net.ltxprogrammer.changed.entity.beast;
 
-import net.ltxprogrammer.changed.entity.TransfurCause;
-import net.ltxprogrammer.changed.entity.TransfurMode;
-import net.ltxprogrammer.changed.entity.variant.EntityShape;
 import net.ltxprogrammer.changed.init.ChangedSounds;
 import net.ltxprogrammer.changed.init.ChangedTransfurVariants;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.EntityShape;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
+import net.ltxprogrammer.changed.transform.TransfurCause;
+import net.ltxprogrammer.changed.transform.TransfurMode;
 import net.ltxprogrammer.changed.util.Color3;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -151,10 +151,10 @@ public class DarkLatexWolfPup extends AbstractDarkLatexEntity {
         age++;
 
         var underlyingPlayer = getUnderlyingPlayer();
-        if (ProcessTransfur.ifPlayerTransfurred(underlyingPlayer, variant -> {
+        if (ProcessTransform.ifPlayerTransfurred(underlyingPlayer, variant -> {
             if (variant.ageAsVariant > MAX_AGE || age > MAX_AGE) {
                 var newVariant = ChangedTransfurVariants.Gendered.DARK_LATEX_WOLVES.getRandomVariant(level.random);
-                ProcessTransfur.changeTransfur(underlyingPlayer, newVariant);
+                ProcessTransform.changeTransfur(underlyingPlayer, newVariant);
                 ChangedSounds.broadcastSound(this, newVariant.sound, 1.0f, 1.0f);
                 underlyingPlayer.heal(12.0f);
             }
@@ -198,7 +198,7 @@ public class DarkLatexWolfPup extends AbstractDarkLatexEntity {
                     itemstack.shrink(1);
                 }
 
-                ProcessTransfur.ifPlayerTransfurred(player, variant -> {
+                ProcessTransform.ifPlayerTransfurred(player, variant -> {
                     this.level.broadcastEntityEvent(this, (byte)6);
                 }, () -> {
                     if (this.random.nextInt(10) == 0) { // One in 10 chance

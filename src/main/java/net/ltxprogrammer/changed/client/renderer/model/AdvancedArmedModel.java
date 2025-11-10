@@ -1,7 +1,7 @@
 package net.ltxprogrammer.changed.client.renderer.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.ltxprogrammer.changed.entity.ChangedEntity;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
 import net.minecraft.world.entity.HumanoidArm;
 
 public interface AdvancedArmedModel<T extends ChangedEntity> {

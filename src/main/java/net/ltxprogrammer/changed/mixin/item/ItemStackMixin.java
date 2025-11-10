@@ -1,6 +1,6 @@
 package net.ltxprogrammer.changed.mixin.item;
 
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.ltxprogrammer.changed.util.EntityUtil;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -21,7 +21,7 @@ public abstract class ItemStackMixin implements IForgeItemStack {
         ItemStack self = (ItemStack)(IForgeItemStack)this;
         Player player = EntityUtil.playerOrNull(entity);
         boolean canEquipToSlot = this.getItem().canEquip(self, armorType, entity);
-        return ProcessTransfur.ifPlayerTransfurred(player, variant -> {
+        return ProcessTransform.ifPlayerTransfurred(player, variant -> {
             return variant.canWear(player, self, armorType) && canEquipToSlot;
         }, () -> canEquipToSlot);
     }
@@ -29,7 +29,7 @@ public abstract class ItemStackMixin implements IForgeItemStack {
     @Override
     public boolean canElytraFly(LivingEntity entity) {
         ItemStack self = (ItemStack)(IForgeItemStack)this;
-        boolean variantCanFly = ProcessTransfur.getPlayerTransfurVariantSafe(EntityUtil.playerOrNull(entity))
+        boolean variantCanFly = ProcessTransform.getPlayerTransfurVariantSafe(EntityUtil.playerOrNull(entity))
                 .map(variant -> variant.getParent().canGlide).orElse(false);
         return variantCanFly || this.getItem().canElytraFly(self, entity);
     }
@@ -37,7 +37,7 @@ public abstract class ItemStackMixin implements IForgeItemStack {
     @Override
     public boolean elytraFlightTick(LivingEntity entity, int flightTicks) {
         ItemStack self = (ItemStack)(IForgeItemStack)this;
-        boolean variantCanFly = ProcessTransfur.getPlayerTransfurVariantSafe(EntityUtil.playerOrNull(entity))
+        boolean variantCanFly = ProcessTransform.getPlayerTransfurVariantSafe(EntityUtil.playerOrNull(entity))
                 .map(variant -> variant.getParent().canGlide).orElse(false);
         return variantCanFly || this.getItem().elytraFlightTick(self, entity, flightTicks);
     }

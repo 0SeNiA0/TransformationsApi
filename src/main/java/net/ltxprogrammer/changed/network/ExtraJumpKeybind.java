@@ -1,6 +1,6 @@
 package net.ltxprogrammer.changed.network;
 
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -23,7 +23,7 @@ public class ExtraJumpKeybind {
     public static void handler(ExtraJumpKeybind message, Supplier<NetworkEvent.Context> contextSupplier) {
         NetworkEvent.Context context = contextSupplier.get();
         context.enqueueWork(() -> {
-            ProcessTransfur.ifPlayerTransfurred(context.getSender(), (player, variant) -> {
+            ProcessTransform.ifPlayerTransfurred(context.getSender(), (player, variant) -> {
                 if (variant.getJumpCharges() > 0) {
                     variant.decJumpCharges();
                     player.jumpFromGround();

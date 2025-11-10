@@ -3,11 +3,11 @@ package net.ltxprogrammer.changed.network.packet;
 import net.ltxprogrammer.changed.Changed;
 import net.ltxprogrammer.changed.ability.AbstractAbility;
 import net.ltxprogrammer.changed.ability.AbstractAbilityInstance;
-import net.ltxprogrammer.changed.entity.LivingEntityDataExtension;
+import net.ltxprogrammer.changed.entity.api.LivingEntityDataExtension;
 import net.ltxprogrammer.changed.init.ChangedAbilities;
 import net.ltxprogrammer.changed.init.ChangedSounds;
 import net.ltxprogrammer.changed.init.ChangedTags;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.ltxprogrammer.changed.util.EntityUtil;
 import net.ltxprogrammer.changed.util.UniversalDist;
 import net.minecraft.network.FriendlyByteBuf;
@@ -72,13 +72,13 @@ public class GrabEntityPacket implements ChangedPacket {
                 return;
             context.setPacketHandled(true);
             if (sender.getId() == sourceEntity) {
-                if (ProcessTransfur.isPlayerNotLatex(sender))
+                if (ProcessTransform.isPlayerNotLatex(sender))
                     return; // Invalid, sender has to be latex
             } else {
                 return; // Invalid, sender cannot dictate other entities grab action
             }
 
-            ProcessTransfur.ifPlayerTransfurred(sender, variant -> {
+            ProcessTransform.ifPlayerTransfurred(sender, variant -> {
                 var ability = variant.getAbilityInstance(ChangedAbilities.GRAB_ENTITY_ABILITY.get());
                 if (ability == null)
                     return;
@@ -118,7 +118,7 @@ public class GrabEntityPacket implements ChangedPacket {
             if (!(source instanceof LivingEntity livingSource)) return;
             if (!(target instanceof LivingEntity livingTarget)) return;
 
-            ProcessTransfur.ifPlayerTransfurred(EntityUtil.playerOrNull(livingSource), variant -> {
+            ProcessTransform.ifPlayerTransfurred(EntityUtil.playerOrNull(livingSource), variant -> {
                 variant.ifHasAbility(ChangedAbilities.GRAB_ENTITY_ABILITY.get(), ability -> {
                     switch (type) {
                         case RELEASE -> ability.releaseEntity();
@@ -180,7 +180,7 @@ public class GrabEntityPacket implements ChangedPacket {
         public void handle(Supplier<NetworkEvent.Context> contextSupplier) {
             var sender = contextSupplier.get().getSender();
             if (sender != null) {
-                ProcessTransfur.ifPlayerTransfurred(sender, variant -> {
+                ProcessTransform.ifPlayerTransfurred(sender, variant -> {
                     variant.ifHasAbility(ChangedAbilities.GRAB_ENTITY_ABILITY.get(), instance -> {
                         instance.attackDown = this.attackKey;
                         instance.useDown = this.useKey;
@@ -193,7 +193,7 @@ public class GrabEntityPacket implements ChangedPacket {
                 Player player = level.getPlayerByUUID(this.uuid);
                 if (player == null)
                     return;
-                ProcessTransfur.ifPlayerTransfurred(player, variant -> {
+                ProcessTransform.ifPlayerTransfurred(player, variant -> {
                     variant.ifHasAbility(ChangedAbilities.GRAB_ENTITY_ABILITY.get(), instance -> {
                         instance.attackDown = this.attackKey;
                         instance.useDown = this.useKey;

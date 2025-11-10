@@ -2,9 +2,9 @@ package net.ltxprogrammer.changed.advancements.critereon;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.gson.*;
-import net.ltxprogrammer.changed.entity.variant.TransfurVariant;
-import net.ltxprogrammer.changed.entity.variant.TransfurVariantInstance;
 import net.ltxprogrammer.changed.init.ChangedRegistry;
+import net.ltxprogrammer.changed.transform.TransfurVariant;
+import net.ltxprogrammer.changed.transform.TransfurVariantInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 

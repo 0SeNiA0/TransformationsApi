@@ -9,8 +9,8 @@ import net.ltxprogrammer.changed.ability.IAbstractChangedEntity;
 import net.ltxprogrammer.changed.client.api.CameraExtender;
 import net.ltxprogrammer.changed.client.renderer.AdvancedHumanoidRenderer;
 import net.ltxprogrammer.changed.client.renderer.model.AdvancedHumanoidModelInterface;
-import net.ltxprogrammer.changed.entity.ChangedEntity;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.ltxprogrammer.changed.util.CameraUtil;
 import net.ltxprogrammer.changed.util.EntityUtil;
 import net.minecraft.client.Camera;
@@ -112,7 +112,7 @@ public abstract class CameraMixin implements CameraExtender {
             adjustAnimForEntity(ChangedEntity, partialTicks);
 
         else if (entity instanceof Player player) {
-            ProcessTransfur.ifPlayerTransfurred(player, variant -> {
+            ProcessTransform.ifPlayerTransfurred(player, variant -> {
                 adjustAnimForEntity(variant.getChangedEntity(), partialTicks);
             });
         }
@@ -147,7 +147,7 @@ public abstract class CameraMixin implements CameraExtender {
 
     @Unique
     private float getEntityZOffset(LivingEntity entity) {
-        var playerVariantOffset = ProcessTransfur.getPlayerTransfurVariantSafe(EntityUtil.playerOrNull(entity)).map(variant ->
+        var playerVariantOffset = ProcessTransform.getPlayerTransfurVariantSafe(EntityUtil.playerOrNull(entity)).map(variant ->
                 Mth.lerp(variant.getMorphProgression(Minecraft.getInstance().getDeltaFrameTime()), 0.0f, variant.getParent().cameraZOffset));
         if (playerVariantOffset.isPresent())
             return playerVariantOffset.get();

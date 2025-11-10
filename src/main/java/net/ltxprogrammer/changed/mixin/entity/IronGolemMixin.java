@@ -1,7 +1,7 @@
 package net.ltxprogrammer.changed.mixin.entity;
 
 
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.NeutralMob;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -27,7 +27,7 @@ public abstract class IronGolemMixin extends AbstractGolem implements NeutralMob
             if (self.isPlayerCreated())
                 return false;
             if (livingEntity instanceof Player player)
-                return !ProcessTransfur.isPlayerNotLatex(player);
+                return !ProcessTransform.isPlayerNotLatex(player);
             else return false;
         }));
     }

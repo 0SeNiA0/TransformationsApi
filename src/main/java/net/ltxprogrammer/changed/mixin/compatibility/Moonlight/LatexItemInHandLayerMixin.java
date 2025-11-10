@@ -3,7 +3,7 @@ package net.ltxprogrammer.changed.mixin.compatibility.Moonlight;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.ltxprogrammer.changed.client.renderer.layers.LatexItemInHandLayer;
 import net.ltxprogrammer.changed.client.renderer.model.AdvancedHumanoidModel;
-import net.ltxprogrammer.changed.entity.ChangedEntity;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
 import net.ltxprogrammer.changed.extension.RequiredMods;
 import net.mehvahdjukaar.selene.api.IThirdPersonSpecialItemRenderer;
 import net.minecraft.client.model.ArmedModel;

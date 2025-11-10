@@ -2,7 +2,7 @@ package net.ltxprogrammer.changed.tutorial;
 
 import net.ltxprogrammer.changed.ability.AbstractAbilityInstance;
 import net.ltxprogrammer.changed.init.ChangedKeyMappings;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.toasts.TutorialToast;
 import net.minecraft.client.tutorial.Tutorial;
@@ -28,7 +28,7 @@ public class UseAbilityTutorialStep implements ChangedTutorialInstance {
     public void tick() {
         ++this.timeWaiting;
         var player = Minecraft.getInstance().player;
-        if (!ProcessTransfur.isPlayerTransfurred(player)) {
+        if (!ProcessTransform.isPlayerTransfurred(player)) {
             this.tutorial.setStep(TutorialSteps.NONE);
             return;
         }

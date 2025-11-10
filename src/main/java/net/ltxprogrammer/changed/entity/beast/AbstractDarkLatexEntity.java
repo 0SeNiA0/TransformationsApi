@@ -1,9 +1,10 @@
 package net.ltxprogrammer.changed.entity.beast;
 
-import net.ltxprogrammer.changed.entity.TamableLatexEntity;
 import net.ltxprogrammer.changed.entity.ai.LatexFollowOwnerGoal;
 import net.ltxprogrammer.changed.entity.ai.LatexOwnerHurtByTargetGoal;
 import net.ltxprogrammer.changed.entity.ai.LatexOwnerHurtTargetGoal;
+import net.ltxprogrammer.changed.entity.api.DarkLatexEntity;
+import net.ltxprogrammer.changed.entity.api.TamableLatexEntity;
 import net.ltxprogrammer.changed.init.ChangedCriteriaTriggers;
 import net.minecraft.Util;
 import net.minecraft.core.particles.ParticleOptions;

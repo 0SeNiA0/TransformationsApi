@@ -7,9 +7,9 @@ import net.ltxprogrammer.changed.Changed;
 import net.ltxprogrammer.changed.ability.AbstractAbility;
 import net.ltxprogrammer.changed.ability.AbstractAbilityInstance;
 import net.ltxprogrammer.changed.client.ChangedClient;
-import net.ltxprogrammer.changed.entity.variant.TransfurVariantInstance;
 import net.ltxprogrammer.changed.init.ChangedTags;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
+import net.ltxprogrammer.changed.transform.TransfurVariantInstance;
 import net.ltxprogrammer.changed.util.EntityUtil;
 import net.ltxprogrammer.changed.util.Transition;
 import net.minecraft.client.Minecraft;
@@ -77,7 +77,7 @@ public class AbilityOverlay {
     }
 
     public static void renderSelectedAbility(Gui gui, PoseStack stack, float partialTick, int screenWidth, int screenHeight) {
-        ProcessTransfur.ifPlayerTransfurred(EntityUtil.playerOrNull(Minecraft.getInstance().cameraEntity), (player, variant) -> {
+        ProcessTransform.ifPlayerTransfurred(EntityUtil.playerOrNull(Minecraft.getInstance().cameraEntity), (player, variant) -> {
             var ability = variant.getSelectedAbility();
             if (ability == null || ability.getUseType() == AbstractAbility.UseType.MENU)
                 return;

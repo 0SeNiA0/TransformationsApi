@@ -1,6 +1,6 @@
 package net.ltxprogrammer.changed.mixin.network;
 
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.ltxprogrammer.changed.util.EntityUtil;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.ClientPacketListener;
@@ -15,7 +15,7 @@ public abstract class ClientPacketListenerMixin {
     @Redirect(method = "handleEntityLinkPacket", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;getEntity(I)Lnet/minecraft/world/entity/Entity;"))
     protected Entity replaceWithVariantEntity(ClientLevel level, int id) {
         final var entity = level.getEntity(id);
-        final var variant = ProcessTransfur.getPlayerTransfurVariant(EntityUtil.playerOrNull(entity));
+        final var variant = ProcessTransform.getPlayerTransfurVariant(EntityUtil.playerOrNull(entity));
         if (variant != null)
             return variant.getChangedEntity();
         return entity;

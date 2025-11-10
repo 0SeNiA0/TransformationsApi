@@ -1,11 +1,11 @@
 package net.ltxprogrammer.changed.mixin.render;
 
-import net.ltxprogrammer.changed.client.api.ClientLivingEntityExtender;
 import net.ltxprogrammer.changed.client.animations.Limb;
+import net.ltxprogrammer.changed.client.api.ClientLivingEntityExtender;
 import net.ltxprogrammer.changed.client.renderer.AdvancedHumanoidRenderer;
 import net.ltxprogrammer.changed.client.tfanimations.TransfurAnimator;
 import net.ltxprogrammer.changed.item.SpecializedAnimations;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.ltxprogrammer.changed.util.EntityUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.AgeableListModel;
@@ -97,7 +97,7 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends Ageable
             });
         }
 
-        ProcessTransfur.ifPlayerTransfurred(EntityUtil.playerOrNull(entity), variant -> {
+        ProcessTransform.ifPlayerTransfurred(EntityUtil.playerOrNull(entity), variant -> {
             if (variant.transfurProgression < 1f) {
                 final Minecraft minecraft = Minecraft.getInstance();
                 final EntityRenderDispatcher dispatcher = minecraft.getEntityRenderDispatcher();

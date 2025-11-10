@@ -8,14 +8,14 @@ import net.ltxprogrammer.changed.client.api.FormRenderHandler;
 import net.ltxprogrammer.changed.client.api.RenderOverride;
 import net.ltxprogrammer.changed.client.tfanimations.TransfurAnimator;
 import net.ltxprogrammer.changed.data.BiListener;
-import net.ltxprogrammer.changed.entity.LivingEntityDataExtension;
+import net.ltxprogrammer.changed.entity.api.LivingEntityDataExtension;
 import net.ltxprogrammer.changed.init.ChangedAbilities;
 import net.ltxprogrammer.changed.init.ChangedDamageSources;
 import net.ltxprogrammer.changed.init.ChangedGameRules;
 import net.ltxprogrammer.changed.init.ChangedTags;
 import net.ltxprogrammer.changed.network.packet.QueryTransfurPacket;
 import net.ltxprogrammer.changed.network.packet.SyncTransfurProgressPacket;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.player.LocalPlayer;
@@ -38,10 +38,10 @@ public class EventHandlerClient {
         var player = Minecraft.getInstance().level.getPlayerByUUID(uuid);
         if (player == null)
             return;
-        var oldProgress = ProcessTransfur.getPlayerTransfurProgress(player);
+        var oldProgress = ProcessTransform.getPlayerTransfurProgress(player);
         if (Math.abs(oldProgress - progress) < 0.02f) // Prevent sync shudder
             return;
-        ProcessTransfur.setPlayerTransfurProgress(player, progress);
+        ProcessTransform.setPlayerTransfurProgress(player, progress);
     });
 
     @OnlyIn(Dist.CLIENT)
@@ -86,7 +86,7 @@ public class EventHandlerClient {
         if (!player.isRemoved() && !player.isSpectator() && !TransfurAnimator.shouldRenderHuman()) {
             if (RenderOverride.renderOverrides(player, null, event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), event.getPartialTick()))
                 event.setCanceled(true);
-            else if (ProcessTransfur.isPlayerTransfurred(player)) {
+            else if (ProcessTransform.isPlayerTransfurred(player)) {
                 event.setCanceled(true);
                 FormRenderHandler.renderForm(player, event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), event.getPartialTick());
             }
@@ -115,7 +115,7 @@ public class EventHandlerClient {
         if (event.isAttack() || event.isUseItem()) {
             LocalPlayer localPlayer = Minecraft.getInstance().player;
 
-            ProcessTransfur.ifPlayerTransfurred(localPlayer, variant -> {
+            ProcessTransform.ifPlayerTransfurred(localPlayer, variant -> {
                 variant.ifHasAbility(ChangedAbilities.GRAB_ENTITY_ABILITY.get(), ability -> {
                     if (ability.grabbedEntity != null && !ability.suited) {
                         event.setCanceled(true);
@@ -160,7 +160,7 @@ public class EventHandlerClient {
     public static class ForgeEventHandler {
 
         @SubscribeEvent
-        public static void onChangedVariant(ProcessTransfur.EntityVariantAssigned.ChangedVariant event) {
+        public static void onChangedVariant(ProcessTransform.EntityVariantAssigned.ChangedVariant event) {
             if (event.livingEntity.level.isClientSide)
                 return;
 

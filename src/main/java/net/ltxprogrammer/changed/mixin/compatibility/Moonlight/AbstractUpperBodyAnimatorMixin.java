@@ -3,7 +3,7 @@ package net.ltxprogrammer.changed.mixin.compatibility.Moonlight;
 import net.ltxprogrammer.changed.client.renderer.animate.HumanoidAnimator;
 import net.ltxprogrammer.changed.client.renderer.animate.upperbody.AbstractUpperBodyAnimator;
 import net.ltxprogrammer.changed.client.renderer.model.AdvancedHumanoidModel;
-import net.ltxprogrammer.changed.entity.ChangedEntity;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
 import net.ltxprogrammer.changed.extension.RequiredMods;
 import net.mehvahdjukaar.selene.api.IThirdPersonAnimationProvider;
 import net.mehvahdjukaar.selene.util.TwoHandedAnimation;

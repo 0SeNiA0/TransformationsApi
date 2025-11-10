@@ -2,9 +2,9 @@ package net.ltxprogrammer.changed.network.packet;
 
 import net.ltxprogrammer.changed.ability.AbstractAbility;
 import net.ltxprogrammer.changed.ability.AbstractAbilityInstance;
-import net.ltxprogrammer.changed.entity.ChangedEntity;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
 import net.ltxprogrammer.changed.init.ChangedRegistry;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.ltxprogrammer.changed.util.UniversalDist;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -51,7 +51,7 @@ public class AbilityPayloadPacket implements ChangedPacket {
             if (entity instanceof ChangedEntity changedEntity) {
                 abilityInstance = changedEntity.getAbilityInstance(ability);
             } else if (entity instanceof Player player) {
-                final var variant = ProcessTransfur.getPlayerTransfurVariant(player);
+                final var variant = ProcessTransform.getPlayerTransfurVariant(player);
                 if (variant != null)
                     abilityInstance = variant.getAbilityInstance(ability);
             }

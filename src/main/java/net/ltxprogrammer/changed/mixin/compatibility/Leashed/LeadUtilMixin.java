@@ -1,6 +1,6 @@
 package net.ltxprogrammer.changed.mixin.compatibility.Leashed;
 
-import net.ltxprogrammer.changed.entity.ChangedEntity;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
 import net.ltxprogrammer.changed.extension.RequiredMods;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;

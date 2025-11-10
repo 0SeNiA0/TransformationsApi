@@ -1,7 +1,7 @@
 package net.ltxprogrammer.changed.util;
 
-import net.ltxprogrammer.changed.entity.ChangedEntity;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.Entity;
@@ -38,7 +38,7 @@ public class EntityUtil {
      * @return Changed entity or original entity
      */
     public static LivingEntity maybeGetOverlaying(LivingEntity entity) {
-        return ProcessTransfur.getPlayerTransfurVariantSafe(playerOrNull(entity))
+        return ProcessTransform.getPlayerTransfurVariantSafe(playerOrNull(entity))
                 .map(instance -> (LivingEntity)instance.getChangedEntity())
                 .orElse(entity);
     }
@@ -55,7 +55,7 @@ public class EntityUtil {
         final float originalFriction = instance.getFriction(level, pos, entity);
 
         if (instance.is(BlockTags.ICE) && entity instanceof LivingEntity livingEntity) {
-            return ProcessTransfur.getEntityVariant(livingEntity).map(variant -> {
+            return ProcessTransform.getEntityVariant(livingEntity).map(variant -> {
                 if (livingEntity.getAttributeValue(Attributes.MOVEMENT_SPEED) > 0.1f) // TODO replace with variant builder property for affected by friction
                     return 0.6f;
                 else

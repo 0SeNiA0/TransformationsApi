@@ -2,7 +2,7 @@ package net.ltxprogrammer.changed;
 
 import net.ltxprogrammer.changed.client.gui.TransfurProgressOverlay;
 import net.ltxprogrammer.changed.data.RegistryElementPredicate;
-import net.ltxprogrammer.changed.entity.BasicPlayerInfo;
+import net.ltxprogrammer.changed.transform.BasicPlayerInfo;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtIo;
 import net.minecraft.world.level.block.Block;

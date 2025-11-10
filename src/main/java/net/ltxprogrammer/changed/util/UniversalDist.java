@@ -2,9 +2,9 @@ package net.ltxprogrammer.changed.util;
 
 import net.ltxprogrammer.changed.client.LocalTransfurVariantInstance;
 import net.ltxprogrammer.changed.client.RemoteTransfurVariantInstance;
-import net.ltxprogrammer.changed.entity.variant.TransfurVariant;
-import net.ltxprogrammer.changed.entity.variant.TransfurVariantInstance;
-import net.ltxprogrammer.changed.server.ServerTransfurVariantInstance;
+import net.ltxprogrammer.changed.transform.ServerTransfurVariantInstance;
+import net.ltxprogrammer.changed.transform.TransfurVariant;
+import net.ltxprogrammer.changed.transform.TransfurVariantInstance;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.player.RemotePlayer;

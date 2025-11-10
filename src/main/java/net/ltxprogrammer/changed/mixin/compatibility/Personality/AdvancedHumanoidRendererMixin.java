@@ -3,7 +3,7 @@ package net.ltxprogrammer.changed.mixin.compatibility.Personality;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.teamabnormals.personality.core.Personality;
 import net.ltxprogrammer.changed.client.renderer.AdvancedHumanoidRenderer;
-import net.ltxprogrammer.changed.entity.ChangedEntity;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
 import net.ltxprogrammer.changed.extension.RequiredMods;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;

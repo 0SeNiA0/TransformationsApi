@@ -1,7 +1,7 @@
 package net.ltxprogrammer.changed.mixin.gui;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.ltxprogrammer.changed.util.EntityUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -20,7 +20,7 @@ public abstract class ForgeIngameGuiMixin extends Gui {
     @Inject(method = "renderAir", at = @At("HEAD"), cancellable = true)
     protected void renderAir(int width, int height, PoseStack poseStack, CallbackInfo callback) {
         var entity = Minecraft.getInstance().getCameraEntity();
-        ProcessTransfur.ifPlayerTransfurred(EntityUtil.playerOrNull(entity), (player, variant) -> {
+        ProcessTransform.ifPlayerTransfurred(EntityUtil.playerOrNull(entity), (player, variant) -> {
             if (variant.breatheMode.canBreatheWater() && player.getAirSupply() >= 300)
                 callback.cancel();
         });

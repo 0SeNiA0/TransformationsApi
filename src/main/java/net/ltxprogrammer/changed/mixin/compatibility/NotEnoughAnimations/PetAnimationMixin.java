@@ -2,10 +2,10 @@ package net.ltxprogrammer.changed.mixin.compatibility.NotEnoughAnimations;
 
 import dev.tr7zw.notenoughanimations.access.PlayerData;
 import dev.tr7zw.notenoughanimations.animations.hands.PetAnimation;
-import net.ltxprogrammer.changed.entity.ChangedEntity;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
 import net.ltxprogrammer.changed.extension.RequiredMods;
 import net.ltxprogrammer.changed.init.ChangedTransfurVariants;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -40,7 +40,7 @@ public abstract class PetAnimationMixin {
             }, d);
             if (entHit == null || !(entHit.getEntity() instanceof LivingEntity livingEntity))
                 return;
-            ProcessTransfur.getEntityVariant(livingEntity).ifPresent(variant -> {
+            ProcessTransform.getEntityVariant(livingEntity).ifPresent(variant -> {
                 if (livingEntity instanceof ChangedEntity ChangedEntity && ChangedEntity.isPreventingPlayerRest(entity))
                     return;
 

@@ -10,9 +10,8 @@ import net.ltxprogrammer.changed.data.AccessorySlotContext;
 import net.ltxprogrammer.changed.data.AccessorySlotType;
 import net.ltxprogrammer.changed.data.AccessorySlots;
 import net.ltxprogrammer.changed.entity.AccessoryEntities;
-import net.ltxprogrammer.changed.entity.ChangedEntity;
-import net.ltxprogrammer.changed.entity.LivingEntityDataExtension;
-import net.ltxprogrammer.changed.entity.variant.TransfurVariantInstance;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
+import net.ltxprogrammer.changed.entity.api.LivingEntityDataExtension;
 import net.ltxprogrammer.changed.init.ChangedAbilities;
 import net.ltxprogrammer.changed.init.ChangedRegistry;
 import net.ltxprogrammer.changed.init.ChangedTags;
@@ -20,7 +19,8 @@ import net.ltxprogrammer.changed.item.AccessoryItem;
 import net.ltxprogrammer.changed.item.ExtendedItemProperties;
 import net.ltxprogrammer.changed.item.SpecializedAnimations;
 import net.ltxprogrammer.changed.network.packet.AccessorySyncPacket;
-import net.ltxprogrammer.changed.process.ProcessTransfur;
+import net.ltxprogrammer.changed.transform.ProcessTransform;
+import net.ltxprogrammer.changed.transform.TransfurVariantInstance;
 import net.ltxprogrammer.changed.util.EntityUtil;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -30,7 +30,10 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.attributes.*;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeMap;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -103,7 +106,7 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
     @Inject(method = "updateFallFlying", at = @At("HEAD"), cancellable = true)
     private void updateFallFlying(CallbackInfo callback) {
         if (this.level.isClientSide) return;
-        ProcessTransfur.ifPlayerTransfurred(EntityUtil.playerOrNull(this), (player, variant) -> {
+        ProcessTransform.ifPlayerTransfurred(EntityUtil.playerOrNull(this), (player, variant) -> {
             if (variant.getParent().canGlide) {
                 this.setSharedFlag(7, player.isFallFlying() && !player.isOnGround() && !player.isPassenger() && !player.hasEffect(MobEffects.LEVITATION));
                 callback.cancel();
@@ -113,7 +116,7 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
 
     @Inject(method = "onClimbable", at = @At("HEAD"), cancellable = true)
     public void onClimbable(CallbackInfoReturnable<Boolean> callback) {
-        ProcessTransfur.ifPlayerTransfurred(EntityUtil.playerOrNull(this), (variant) -> {
+        ProcessTransform.ifPlayerTransfurred(EntityUtil.playerOrNull(this), (variant) -> {
             if (variant.getParent().canClimb && this.horizontalCollision)
                 callback.setReturnValue(true);
         });
@@ -127,13 +130,13 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
         }
 
         else {
-            ProcessTransfur.getEntityVariant((LivingEntity)(Object)this).map(variant -> callback.getReturnValue() * variant.jumpStrength).ifPresent(callback::setReturnValue);
+            ProcessTransform.getEntityVariant((LivingEntity)(Object)this).map(variant -> callback.getReturnValue() * variant.jumpStrength).ifPresent(callback::setReturnValue);
         }
     }
 
     @Inject(method = "hasEffect", at = @At("HEAD"), cancellable = true)
     public void hasEffect(MobEffect effect, CallbackInfoReturnable<Boolean> callback) {
-        ProcessTransfur.ifPlayerTransfurred(EntityUtil.playerOrNull(this), (player, variant) -> {
+        ProcessTransform.ifPlayerTransfurred(EntityUtil.playerOrNull(this), (player, variant) -> {
             if (variant.visionType.test(effect))
                 callback.setReturnValue(true);
 
@@ -147,7 +150,7 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
 
     @Inject(method = "getEffect", at = @At("HEAD"), cancellable = true)
     public void getEffect(MobEffect effect, CallbackInfoReturnable<MobEffectInstance> callback) {
-        ProcessTransfur.ifPlayerTransfurred(EntityUtil.playerOrNull(this), (player, variant) -> {
+        ProcessTransform.ifPlayerTransfurred(EntityUtil.playerOrNull(this), (player, variant) -> {
             if (variant.visionType.test(effect))
                 callback.setReturnValue(new MobEffectInstance(effect, 300, 1, false, false));
 
@@ -161,7 +164,7 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntityDa
 
     @WrapMethod(method = "isVisuallySwimming")
     private boolean isVariantVisuallySwimming(Operation<Boolean> original) {
-        return ProcessTransfur.getPlayerTransfurVariantSafe(EntityUtil.playerOrNull(this))
+        return ProcessTransform.getPlayerTransfurVariantSafe(EntityUtil.playerOrNull(this))
                 .map(TransfurVariantInstance::getChangedEntity)
                 .map(ChangedEntity::isVisuallySwimming)
                 .orElseGet(original::call);

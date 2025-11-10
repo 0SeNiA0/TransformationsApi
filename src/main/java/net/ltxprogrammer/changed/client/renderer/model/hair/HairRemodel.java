@@ -2,7 +2,7 @@ package net.ltxprogrammer.changed.client.renderer.model.hair;
 
 import net.ltxprogrammer.changed.Changed;
 import net.ltxprogrammer.changed.client.renderer.model.HairModel;
-import net.ltxprogrammer.changed.entity.HairStyle;
+import net.ltxprogrammer.changed.transform.HairStyle;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.PartPose;

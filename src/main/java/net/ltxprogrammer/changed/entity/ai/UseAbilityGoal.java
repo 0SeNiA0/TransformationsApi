@@ -3,7 +3,7 @@ package net.ltxprogrammer.changed.entity.ai;
 import com.mojang.datafixers.util.Pair;
 import net.ltxprogrammer.changed.ability.AbstractAbility;
 import net.ltxprogrammer.changed.ability.AbstractAbilityInstance;
-import net.ltxprogrammer.changed.entity.ChangedEntity;
+import net.ltxprogrammer.changed.entity.api.ChangedEntity;
 import net.ltxprogrammer.changed.util.Cacheable;
 import net.ltxprogrammer.changed.util.CollectionUtil;
 import net.minecraft.world.entity.ai.goal.Goal;

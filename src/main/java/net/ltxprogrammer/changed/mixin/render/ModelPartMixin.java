@@ -2,8 +2,8 @@ package net.ltxprogrammer.changed.mixin.render;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.ltxprogrammer.changed.client.api.ModelPartExtender;
 import net.ltxprogrammer.changed.client.Triangle;
+import net.ltxprogrammer.changed.client.api.ModelPartExtender;
 import net.ltxprogrammer.changed.client.tfanimations.TransfurAnimator;
 import net.minecraft.client.model.geom.ModelPart;
 import org.spongepowered.asm.mixin.Final;

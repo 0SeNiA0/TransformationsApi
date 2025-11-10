@@ -4,7 +4,7 @@ package net.ltxprogrammer.changed.effect.particle;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
-import net.ltxprogrammer.changed.entity.Emote;
+import net.ltxprogrammer.changed.emote.Emote;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
